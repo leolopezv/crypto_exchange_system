@@ -1,37 +1,59 @@
 package org.example.controller;
 
 import org.example.model.User;
-import org.example.model.UserRepository;
+import org.example.service.UserService;
 import org.example.view.RegistrationView;
 
 public class UserController {
-    private UserRepository userRepository;
+    private UserService userService;
     private RegistrationView registrationView;
+    private User loggedInUser;
 
-    public UserController(UserRepository userRepository, RegistrationView registrationView) {
-        this.userRepository = userRepository;
+    public UserController(UserService userService, RegistrationView registrationView) {
+        this.userService = userService;
         this.registrationView = registrationView;
     }
 
+    // Registration of a new user
     public void registerUser() {
         String name = registrationView.getNameInput();
         String email = registrationView.getEmailInput();
         String password = registrationView.getPasswordInput();
 
-        // Check if the user already exists
-        if (userRepository.findByName(name) != null) {
-            registrationView.showError("A user with this name already exists. Please choose a different name.");
-            return;
-        }
-
-        if (userRepository.findByEmail(email) != null) {
+        if (userService.isUserExists(email)) {
             registrationView.showError("A user with this email already exists. Please use a different email.");
             return;
         }
 
-        // User creation and saving
-        User newUser = new User(name, email, password);
-        userRepository.save(newUser);
-        registrationView.showSuccess(String.valueOf(newUser.getUserId()));
+        userService.registerUser(name, email, password);
+        registrationView.showSuccess("Registration successful!");
+    }
+
+    // Login of an existing user
+    public void loginUser() {
+        String email = registrationView.getEmailInput();
+        String password = registrationView.getPasswordInput();
+
+        User user = userService.authenticateUser(email, password);
+        if (user != null) {
+            loggedInUser = user;
+            registrationView.showSuccess("Login successful! Welcome " + user.getName() + ".");
+        } else {
+            registrationView.showError("Invalid email or password. Please try again.");
+        }
+    }
+
+    // Logout of the current user
+    public void logoutUser() {
+        loggedInUser = null;
+        registrationView.showSuccess("Logout successful!");
+    }
+
+    public boolean isLoggedIn() {
+        return loggedInUser != null;
+    }
+
+    public String getLoggedInUserName() {
+        return loggedInUser != null ? loggedInUser.getName() : "";
     }
 }

@@ -5,6 +5,7 @@ import java.util.Scanner;
 public class RegistrationView extends ConsoleView{
     private static final Scanner scanner = new Scanner(System.in);
 
+    // Methods to get valuable user data
     public String getNameInput() {
         System.out.print("Enter your name: ");
         return scanner.nextLine();

@@ -12,12 +12,8 @@ public class ConsoleView {
     private final Scanner scanner = new Scanner(System.in);
     private static final int INVALID_CHOICE = -1;
 
+    // The user may select a number
     public int getUserChoice() {
-        System.out.println("Welcome to Leonardo's Crypto Exchange System:");
-        System.out.println("1. Register");
-        System.out.println("2. Login");
-        System.out.println("3. Quit");
-        System.out.print("Enter your choice: ");
         try {
             return scanner.nextInt();
         } catch (InputMismatchException e) {
@@ -26,11 +22,18 @@ public class ConsoleView {
         }
     }
 
+    // Red color for error messages
     public void showError(String error) {
         System.out.println(ANSI_RED + error + ANSI_RESET);
     }
 
+    // Green color for success messages
     public void showSuccess(String message) {
         System.out.println(ANSI_GREEN + message + ANSI_RESET);
+    }
+
+    // Blue color for general messages
+    public void showMessage(String message) {
+        System.out.println(ANSI_BLUE + message + ANSI_RESET);
     }
 }

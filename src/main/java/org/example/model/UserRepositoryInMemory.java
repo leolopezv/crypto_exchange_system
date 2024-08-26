@@ -3,10 +3,11 @@ package org.example.model;
 import java.util.HashMap;
 import java.util.Map;
 
-public class InMemoryUserRepository implements UserRepository {
+public class UserRepositoryInMemory implements UserRepository {
     private Map<Integer, User> users = new HashMap<>();
     private int currentId = 1;
 
+    // Save the user in the memory
     @Override
     public void save(User user) {
         user.setUserId(currentId);
@@ -14,12 +15,12 @@ public class InMemoryUserRepository implements UserRepository {
         currentId++;
     }
 
+    // The following methods will help me validate the user's credentials
+
     @Override
     public User findById(int userId) {
         return users.get(userId);
     }
-
-    // Filter methods for checking if a user exists by name or email
 
     @Override
     public User findByName(String name) {
