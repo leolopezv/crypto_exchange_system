@@ -6,6 +6,9 @@ import org.example.view.ConsoleView;
 import org.example.view.RegistrationView;
 
 public class RootController {
+    /*
+    RootController will ensure that the application is up and running, ensuring users can register, login, and exchange.
+     */
     private final ConsoleView consoleView;
     private final UserController userController;
 
@@ -19,20 +22,20 @@ public class RootController {
     public void run() {
         while (true) {
             if (!userController.isLoggedIn()) {
-                showMainMenu();
+                showWelcomeMenu();
             } else {
-                showUserMenu();
+                showExchangingMenu();
             }
         }
     }
 
     // Menu for not logged in users
-    private void showMainMenu() {
+    private void showWelcomeMenu() {
         consoleView.showMessage("Welcome to Leonardo's Crypto Exchange System:");
         consoleView.showMessage("1. Register");
         consoleView.showMessage("2. Login");
         consoleView.showMessage("3. Quit");
-        consoleView.showMessage("Enter your choice: ");
+        consoleView.showMessage("Enter an option to get into the club: ");
 
         int choice = consoleView.getUserChoice();
         switch (choice) {
@@ -45,19 +48,19 @@ public class RootController {
             case 3:
                 System.exit(0);
             default:
-                consoleView.showError("Invalid option. Please try again.");
+                consoleView.showError("Oops! Look out for errors.");
         }
     }
 
     // Menu for logged in users
-    private void showUserMenu() {
-        consoleView.showMessage("Login successful! Welcome " + userController.getLoggedInUserName() + ".");
+    private void showExchangingMenu() {
+        consoleView.showMessage("Welcome back " + userController.getLoggedInUserName() + "!");
         consoleView.showMessage("1. Soon");
         consoleView.showMessage("2. Soon");
         consoleView.showMessage("3. Soon");
         consoleView.showMessage("4. Soon");
         consoleView.showMessage("5. Log out");
-        consoleView.showMessage("Enter your choice: ");
+        consoleView.showMessage("Enter an option to start exchanging: ");
 
         int choice = consoleView.getUserChoice();
         switch (choice) {
@@ -77,7 +80,7 @@ public class RootController {
                 userController.logoutUser();
                 break;
             default:
-                consoleView.showError("Invalid option. Please try again.");
+                consoleView.showError("That was not supposed to happen! Try again.");
         }
     }
 }

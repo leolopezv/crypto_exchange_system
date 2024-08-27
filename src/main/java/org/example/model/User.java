@@ -1,6 +1,9 @@
 package org.example.model;
 
 public class User {
+    /*
+    User Model
+     */
     private int userId;
     private String name;
     private String email;

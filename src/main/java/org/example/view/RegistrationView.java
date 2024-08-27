@@ -3,6 +3,9 @@ package org.example.view;
 import java.util.Scanner;
 
 public class RegistrationView extends ConsoleView{
+    /*
+    RegistrationView class is a view to ask for the name, email and password of the user
+     */
     private static final Scanner scanner = new Scanner(System.in);
 
     // Methods to get valuable user data

@@ -5,6 +5,9 @@ import org.example.service.UserService;
 import org.example.view.RegistrationView;
 
 public class UserController {
+    /*
+    UserController may be responsible for registering new users, logging in and out old users, and checking who is logged in
+     */
     private UserService userService;
     private RegistrationView registrationView;
     private User loggedInUser;
@@ -21,12 +24,12 @@ public class UserController {
         String password = registrationView.getPasswordInput();
 
         if (userService.isUserExists(email)) {
-            registrationView.showError("A user with this email already exists. Please use a different email.");
+            registrationView.showError("This email has been taken. Please input another one.");
             return;
         }
 
-        userService.registerUser(name, email, password);
-        registrationView.showSuccess("Registration successful!");
+        User newUser = userService.registerUser(name, email, password);
+        registrationView.showSuccess("Successful registration! Hello: " + newUser.getName() + "! This is your ID: " + newUser.getUserId() + ".");
     }
 
     // Login of an existing user
@@ -37,16 +40,16 @@ public class UserController {
         User user = userService.authenticateUser(email, password);
         if (user != null) {
             loggedInUser = user;
-            registrationView.showSuccess("Login successful! Welcome " + user.getName() + ".");
+            registrationView.showSuccess("You have logged in! Hi " + user.getName() + ".");
         } else {
-            registrationView.showError("Invalid email or password. Please try again.");
+            registrationView.showError("Invalid! Check your email and password.");
         }
     }
 
     // Logout of the current user
     public void logoutUser() {
         loggedInUser = null;
-        registrationView.showSuccess("Logout successful!");
+        registrationView.showSuccess("You have logged out successfully.");
     }
 
     public boolean isLoggedIn() {

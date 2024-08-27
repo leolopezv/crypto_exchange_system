@@ -4,6 +4,9 @@ import org.example.model.User;
 import org.example.model.UserRepository;
 
 public class UserService {
+    /*
+    UserService is helping me to check if a user already exists and to register and authenticate a user
+     */
     private UserRepository userRepository;
 
     public UserService(UserRepository userRepository) {
@@ -16,9 +19,10 @@ public class UserService {
     }
 
     // Register a new user
-    public void registerUser(String name, String email, String password) {
+    public User registerUser(String name, String email, String password) {
         User newUser = new User(name, email, password);
         userRepository.save(newUser);
+        return newUser;
     }
 
     // Authenticate a user
