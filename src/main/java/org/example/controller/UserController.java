@@ -18,14 +18,13 @@ public class UserController {
         String name = registrationView.getNameInput();
         String email = registrationView.getEmailInput();
         String password = registrationView.getPasswordInput();
-
-        if (userService.isUserExists(email)) {
-            registrationView.showError("This email has been taken. Please register another one.");
-            return;
-        }
-
         User newUser = userService.registerUser(name, email, password);
-        registrationView.showSuccess("Successful registration! Hello: " + newUser.getName() + "! This is your ID: " + newUser.getUserId());
+
+        if (newUser != null) {
+            registrationView.showSuccess("User registered successfully.");
+        } else {
+            registrationView.showError("Credentials already taken.");
+        }
     }
 
     public void loginUser() {

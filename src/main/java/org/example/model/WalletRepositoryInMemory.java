@@ -15,7 +15,6 @@ public class WalletRepositoryInMemory implements WalletRepository {
 
     @Override
     public Wallet findByUserId(int userId) {
-        System.out.println("Searching wallet with userId: " + userId);
         return walletLocation.get(userId);
     }
 }

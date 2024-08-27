@@ -19,6 +19,10 @@ public class UserService {
     }
 
     public User registerUser(String name, String email, String password) {
+        if (isUserExists(email)) {
+            return null;
+        }
+
         User newUser = new User(name, email, password);
         userRepository.save(newUser);
         Wallet newWallet = new Wallet(newUser.getUserId()); //new
