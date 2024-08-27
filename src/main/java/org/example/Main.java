@@ -8,5 +8,6 @@ public class Main {
         ConsoleView consoleView = new ConsoleView();
         RootController rootController = new RootController(consoleView);
         rootController.run();
+        consoleView.close();
     }
 }

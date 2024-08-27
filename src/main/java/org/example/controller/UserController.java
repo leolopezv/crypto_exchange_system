@@ -5,9 +5,6 @@ import org.example.service.UserService;
 import org.example.view.RegistrationView;
 
 public class UserController {
-    /*
-    UserController may be responsible for registering new users, logging in and out old users, and checking who is logged in
-     */
     private UserService userService;
     private RegistrationView registrationView;
     private User loggedInUser;
@@ -17,7 +14,6 @@ public class UserController {
         this.registrationView = registrationView;
     }
 
-    // Registration of a new user
     public void registerUser() {
         String name = registrationView.getNameInput();
         String email = registrationView.getEmailInput();
@@ -32,7 +28,6 @@ public class UserController {
         registrationView.showSuccess("Successful registration! Hello: " + newUser.getName() + "! This is your ID: " + newUser.getUserId() + ".");
     }
 
-    // Login of an existing user
     public void loginUser() {
         String email = registrationView.getEmailInput();
         String password = registrationView.getPasswordInput();
@@ -46,7 +41,6 @@ public class UserController {
         }
     }
 
-    // Logout of the current user
     public void logoutUser() {
         loggedInUser = null;
         registrationView.showSuccess("You have logged out successfully.");
