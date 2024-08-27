@@ -20,12 +20,12 @@ public class UserController {
         String password = registrationView.getPasswordInput();
 
         if (userService.isUserExists(email)) {
-            registrationView.showError("This email has been taken. Please input another one.");
+            registrationView.showError("This email has been taken. Please register another one.");
             return;
         }
 
         User newUser = userService.registerUser(name, email, password);
-        registrationView.showSuccess("Successful registration! Hello: " + newUser.getName() + "! This is your ID: " + newUser.getUserId() + ".");
+        registrationView.showSuccess("Successful registration! Hello: " + newUser.getName() + "! This is your ID: " + newUser.getUserId());
     }
 
     public void loginUser() {
@@ -35,7 +35,7 @@ public class UserController {
         User user = userService.authenticateUser(email, password);
         if (user != null) {
             loggedInUser = user;
-            registrationView.showSuccess("You have logged in! Hi " + user.getName() + ".");
+            registrationView.showSuccess("You have logged in! Hi " + user.getName());
         } else {
             registrationView.showError("Invalid! Check your email and password.");
         }
@@ -52,5 +52,9 @@ public class UserController {
 
     public String getLoggedInUserName() {
         return loggedInUser != null ? loggedInUser.getName() : "";
+    }
+
+    public int getLoggedInUserId() {
+        return loggedInUser != null ? loggedInUser.getUserId() : -1;
     }
 }
