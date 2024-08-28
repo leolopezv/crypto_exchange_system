@@ -1,7 +1,6 @@
 package org.example.view;
 
 public class RegistrationView extends ConsoleView{
-
     public String getNameInput() {
         System.out.print("Enter your name: ");
         return scanner.nextLine();

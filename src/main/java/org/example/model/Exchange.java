@@ -36,14 +36,6 @@ public class Exchange {
         cryptoReserves.put(symbol, currentStock - quantity);
     }
 
-    public Map<String, Crypto> getCryptoMap() {
-        return cryptoMap;
-    }
-
-    public Map<String, Integer> getCryptoReserves() {
-        return cryptoReserves;
-    }
-
     public void showCryptoStock() {
         System.out.println("Current Exchange Stock:");
         for (Map.Entry<String, Integer> entry : cryptoReserves.entrySet()) {

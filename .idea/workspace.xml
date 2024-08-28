@@ -7,11 +7,22 @@
     <list default="true" id="604e94ce-f48e-4905-a856-7f1f94ed53b6" name="Changes" comment="Fixed: validations for already registers users and deposits of fiat money">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controller/RootController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/RootController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/UserController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controller/WalletController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/WalletController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/model/Crypto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/model/Crypto.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/model/Exchange.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/model/Exchange.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/model/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/model/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/repository/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/model/UserRepositoryInMemory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/repository/UserRepositoryInMemory.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/model/Wallet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/model/Wallet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/model/WalletRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/repository/WalletRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/model/WalletRepositoryInMemory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/repository/WalletRepositoryInMemory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/service/UserService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/service/WalletService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/service/WalletService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/view/ConsoleView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/view/ConsoleView.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/view/MenuViews.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/view/MenuViews.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/view/RegistrationView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/view/RegistrationView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/view/WalletView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/view/WalletView.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -114,7 +125,7 @@
       <updated>1724660990384</updated>
       <workItem from="1724660991552" duration="526000" />
       <workItem from="1724690583994" duration="18288000" />
-      <workItem from="1724779249038" duration="29202000" />
+      <workItem from="1724779249038" duration="34330000" />
     </task>
     <task id="LOCAL-00001" summary="Added: user registration logic">
       <option name="closed" value="true" />

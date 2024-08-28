@@ -19,7 +19,6 @@ public class UserController {
         String email = registrationView.getEmailInput();
         String password = registrationView.getPasswordInput();
         User newUser = userService.registerUser(name, email, password);
-
         if (newUser != null) {
             registrationView.showSuccess("User registered successfully.");
         } else {
@@ -30,7 +29,6 @@ public class UserController {
     public void loginUser() {
         String email = registrationView.getEmailInput();
         String password = registrationView.getPasswordInput();
-
         User user = userService.authenticateUser(email, password);
         if (user != null) {
             loggedInUser = user;

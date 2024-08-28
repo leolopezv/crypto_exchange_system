@@ -1,4 +1,6 @@
-package org.example.model;
+package org.example.repository;
+
+import org.example.model.User;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -4,10 +4,9 @@ import java.math.BigDecimal;
 import java.util.Map;
 
 public class WalletView extends ConsoleView {
-
     public BigDecimal getUserAmount() {
         while (true) {
-            System.out.print("Enter the amount you want to deposit to your fiat balance: ");
+            System.out.print("Enter your desired amount: ");
             try {
                 BigDecimal amount = scanner.nextBigDecimal();
                 if (amount.compareTo(BigDecimal.ZERO) <= 0) {
@@ -28,24 +27,7 @@ public class WalletView extends ConsoleView {
     }
 
     public String getCryptoSymbol() {
-        System.out.print("Enter the symbol of the cryptocurrency you want to buy: ");
+        System.out.print("Enter the symbol of the cryptocurrency you want to buy [BTC/ETH]: ");
         return scanner.next();
-    }
-
-    public BigDecimal getCryptoAmount() {
-        while (true) {
-            System.out.print("Enter the amount of cryptocurrency you want to buy: ");
-            try {
-                BigDecimal amount = scanner.nextBigDecimal();
-                if (amount.compareTo(BigDecimal.ZERO) <= 0) {
-                    showError("Invalid amount. Please enter a positive number.");
-                } else {
-                    return amount;
-                }
-            } catch (Exception e) {
-                scanner.nextLine();
-                showError("Invalid input. Please enter a valid number.");
-            }
-        }
     }
 }

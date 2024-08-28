@@ -1,10 +1,11 @@
-package org.example.model;
+package org.example.repository;
+
+import org.example.model.Wallet;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class WalletRepositoryInMemory implements WalletRepository {
-
     private Map<Integer, Wallet> walletLocation = new HashMap<>();
 
     @Override

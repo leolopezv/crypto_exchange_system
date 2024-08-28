@@ -1,8 +1,8 @@
 package org.example.controller;
 
 import org.example.model.Exchange;
-import org.example.model.UserRepositoryInMemory;
-import org.example.model.WalletRepositoryInMemory;
+import org.example.repository.UserRepositoryInMemory;
+import org.example.repository.WalletRepositoryInMemory;
 import org.example.service.UserService;
 import org.example.service.WalletService;
 import org.example.view.ConsoleView;

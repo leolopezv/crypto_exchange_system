@@ -1,9 +1,9 @@
 package org.example.service;
 
 import org.example.model.User;
-import org.example.model.UserRepository;
+import org.example.repository.UserRepository;
 import org.example.model.Wallet;
-import org.example.model.WalletRepository;
+import org.example.repository.WalletRepository;
 
 public class UserService {
     private UserRepository userRepository;
@@ -14,19 +14,12 @@ public class UserService {
         this.walletRepository = walletRepository;
     }
 
-    public boolean isUserExists(String email) {
-        return userRepository.findByEmail(email) != null;
-    }
-
     public User registerUser(String name, String email, String password) {
-        if (isUserExists(email)) {
-            return null;
-        }
-
+        if (userExists(email)) return null;
         User newUser = new User(name, email, password);
         userRepository.save(newUser);
-        Wallet newWallet = new Wallet(newUser.getUserId()); //new
-        walletRepository.save(newWallet); //new
+        Wallet newWallet = new Wallet(newUser.getUserId());
+        walletRepository.save(newWallet);
         newUser.setWallet(newWallet);
         return newUser;
     }
@@ -34,5 +27,9 @@ public class UserService {
     public User authenticateUser(String email, String password) {
         User user = userRepository.findByEmail(email);
         return user != null && user.getPassword().equals(password) ? user : null;
+    }
+
+    private boolean userExists(String email) {
+        return userRepository.findByEmail(email) != null;
     }
 }

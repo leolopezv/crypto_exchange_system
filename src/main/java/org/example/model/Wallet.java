@@ -30,11 +30,7 @@ public class Wallet {
     }
 
     public void deductFiat(BigDecimal amount) {
-        if (fiatBalance.compareTo(amount) < 0) {
-            // throw new IllegalArgumentException("Insufficient funds to complete the transaction.");
-        } else {
-            fiatBalance = fiatBalance.subtract(amount);
-        }
+        fiatBalance = fiatBalance.subtract(amount);
     }
 
     public Map<String, BigDecimal> getCryptocurrencyBalance() {

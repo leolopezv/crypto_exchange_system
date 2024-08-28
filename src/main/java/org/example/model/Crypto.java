@@ -25,14 +25,6 @@ public class Crypto {
         return marketPrice;
     }
 
-    public void setMarketPrice(BigDecimal marketPrice) {
-        this.marketPrice = marketPrice;
-    }
-
-    public void updatePrice(BigDecimal newPrice) {
-        this.marketPrice = newPrice;
-    }
-
     @Override
     public String toString() {
         return "Cryptocurrency{" +

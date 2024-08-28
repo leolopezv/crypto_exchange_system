@@ -22,20 +22,22 @@ public class WalletController {
 
     public void viewWalletBalance(int userId) {
         Wallet wallet = walletService.getWalletByUserId(userId);
-
         if (wallet == null) {
             walletView.showError("Wallet not found for userId: " + userId);
             return;
         }
-
         walletView.showWalletBalance(wallet.getFiatBalance(), wallet.getCryptocurrencyBalance());
     }
 
     public void buyReserveCrypto(int userId) {
         String cryptoSymbol = walletView.getCryptoSymbol();
-        BigDecimal amount = walletView.getCryptoAmount();
-        String result = walletService.buyReserveCrypto(userId, cryptoSymbol, amount);
-        walletView.showSuccess(result);
+        BigDecimal amount = walletView.getUserAmount();
+        boolean result = walletService.buyReserveCrypto(userId, cryptoSymbol, amount);
+        if (result) {
+            walletView.showSuccess("Purchase successful!");
+        } else {
+            walletView.showError("Purchase failed.");
+        }
         walletService.getExchange().showCryptoStock();
     }
 }
