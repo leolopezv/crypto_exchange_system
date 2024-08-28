@@ -4,12 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="604e94ce-f48e-4905-a856-7f1f94ed53b6" name="Changes" comment="Added: wallet creation and connection to user through ID">
+    <list default="true" id="604e94ce-f48e-4905-a856-7f1f94ed53b6" name="Changes" comment="Fixed: validations for already registers users and deposits of fiat money">
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/model/Bitcoin.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/model/Crypto.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/model/Ethereum.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/model/Exchange.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controller/RootController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/RootController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controller/WalletController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/WalletController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/model/WalletRepositoryInMemory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/model/WalletRepositoryInMemory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/model/Wallet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/model/Wallet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/service/WalletService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/service/WalletService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/view/WalletView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/view/WalletView.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -70,6 +74,11 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\leona\OneDrive\Desktop\IJproyectos\crypto_exchange_system\src\main\java\org\example\model" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="org.example.Main" />
@@ -108,7 +117,7 @@
       <updated>1724660990384</updated>
       <workItem from="1724660991552" duration="526000" />
       <workItem from="1724690583994" duration="18288000" />
-      <workItem from="1724779249038" duration="13955000" />
+      <workItem from="1724779249038" duration="27053000" />
     </task>
     <task id="LOCAL-00001" summary="Added: user registration logic">
       <option name="closed" value="true" />
@@ -142,7 +151,15 @@
       <option name="project" value="LOCAL" />
       <updated>1724798799765</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Fixed: validations for already registers users and deposits of fiat money">
+      <option name="closed" value="true" />
+      <created>1724800699947</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1724800699947</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -164,6 +181,7 @@
     <MESSAGE value="Added: user login and validations to check uniqueness" />
     <MESSAGE value="Updated: user registration/login has been simplified and explained through comments" />
     <MESSAGE value="Added: wallet creation and connection to user through ID" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added: wallet creation and connection to user through ID" />
+    <MESSAGE value="Fixed: validations for already registers users and deposits of fiat money" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed: validations for already registers users and deposits of fiat money" />
   </component>
 </project>

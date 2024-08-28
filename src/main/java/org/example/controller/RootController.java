@@ -1,5 +1,6 @@
 package org.example.controller;
 
+import org.example.model.Exchange;
 import org.example.model.UserRepositoryInMemory;
 import org.example.model.WalletRepositoryInMemory;
 import org.example.service.UserService;
@@ -18,10 +19,13 @@ public class RootController {
     public RootController(ConsoleView consoleView) {
         this.consoleView = consoleView;
         this.menuViews = new MenuViews();
+
         WalletRepositoryInMemory walletRepository = new WalletRepositoryInMemory();
+        Exchange exchange = new Exchange();
+        WalletService walletService = new WalletService(walletRepository, exchange);
+
         UserService userService = new UserService(new UserRepositoryInMemory(), walletRepository);
         this.userController = new UserController(userService, new RegistrationView());
-        WalletService walletService = new WalletService(walletRepository);
         this.walletController = new WalletController(walletService, new WalletView());
     }
 
@@ -63,7 +67,7 @@ public class RootController {
                 walletController.viewWalletBalance(userController.getLoggedInUserId());
                 break;
             case 3:
-                // Buy crypto
+                //walletController.buyCryptocurrency(userController.getLoggedInUserId());
                 break;
             case 4:
                 // Soon

@@ -1,5 +1,6 @@
 package org.example.service;
 
+import org.example.model.Exchange;
 import org.example.model.Wallet;
 import org.example.model.WalletRepository;
 
@@ -7,9 +8,11 @@ import java.math.BigDecimal;
 
 public class WalletService {
     private final WalletRepository walletRepository;
+    private Exchange exchange;
 
-    public WalletService(WalletRepository walletRepository) {
+    public WalletService(WalletRepository walletRepository, Exchange exchange) {
         this.walletRepository = walletRepository;
+        this.exchange = exchange;
     }
 
     public Wallet getWalletByUserId(int userId) {
@@ -21,7 +24,6 @@ public class WalletService {
 
         return wallet;
     }
-
 
     public void depositFiat(int userId, BigDecimal amount) {
         Wallet wallet = walletRepository.findByUserId(userId);
@@ -36,4 +38,5 @@ public class WalletService {
     public Wallet getWalletBalance(int userId) {
         return walletRepository.findByUserId(userId);
     }
+
 }

@@ -7,12 +7,14 @@ import java.util.Map;
 public class Wallet {
     private int userId;
     private BigDecimal fiatBalance;
-    //private Map<Cryptocurrency, BigDecimal> cryptocurrencyBalance;
+    private Map<String, BigDecimal> cryptoBalance;
 
     public Wallet(int userId) {
         this.userId = userId;
         this.fiatBalance = BigDecimal.ZERO;
-        //this.cryptocurrencyBalance = new HashMap<>();
+        this.cryptoBalance = new HashMap<>();
+        this.cryptoBalance.put("BTC", BigDecimal.ZERO);
+        this.cryptoBalance.put("ETH", BigDecimal.ZERO);
     }
 
     public int getUserId() {
@@ -26,4 +28,17 @@ public class Wallet {
     public void addFiat(BigDecimal amount) {
         fiatBalance = fiatBalance.add(amount);
     }
+
+    public void deductFiat(BigDecimal amount) {
+        if (fiatBalance.compareTo(amount) < 0) {
+            // throw new IllegalArgumentException("Insufficient funds to complete the transaction.");
+        } else {
+            fiatBalance = fiatBalance.subtract(amount);
+        }
+    }
+
+    public Map<String, BigDecimal> getCryptocurrencyBalance() {
+        return cryptoBalance;
+    }
+
 }

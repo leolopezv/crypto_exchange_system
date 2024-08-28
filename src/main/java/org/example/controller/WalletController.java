@@ -28,7 +28,6 @@ public class WalletController {
             return;
         }
 
-        walletView.showWalletBalance(wallet.getFiatBalance());
+        walletView.showWalletBalance(wallet.getFiatBalance(), wallet.getCryptocurrencyBalance());
     }
-
 }
