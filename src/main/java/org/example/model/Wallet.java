@@ -41,4 +41,8 @@ public class Wallet {
         return cryptoBalance;
     }
 
+    public void addCrypto(Crypto crypto, BigDecimal amount) {
+        BigDecimal currentAmount = cryptoBalance.get(crypto.getSymbol());
+        cryptoBalance.put(crypto.getSymbol(), currentAmount.add(amount));
+    }
 }

@@ -67,7 +67,7 @@ public class RootController {
                 walletController.viewWalletBalance(userController.getLoggedInUserId());
                 break;
             case 3:
-                //walletController.buyCryptocurrency(userController.getLoggedInUserId());
+                walletController.buyReserveCrypto(userController.getLoggedInUserId());
                 break;
             case 4:
                 // Soon

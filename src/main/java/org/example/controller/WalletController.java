@@ -30,4 +30,12 @@ public class WalletController {
 
         walletView.showWalletBalance(wallet.getFiatBalance(), wallet.getCryptocurrencyBalance());
     }
+
+    public void buyReserveCrypto(int userId) {
+        String cryptoSymbol = walletView.getCryptoSymbol();
+        BigDecimal amount = walletView.getCryptoAmount();
+        String result = walletService.buyReserveCrypto(userId, cryptoSymbol, amount);
+        walletView.showSuccess(result);
+        walletService.getExchange().showCryptoStock();
+    }
 }

@@ -1,5 +1,6 @@
 package org.example.service;
 
+import org.example.model.Crypto;
 import org.example.model.Exchange;
 import org.example.model.Wallet;
 import org.example.model.WalletRepository;
@@ -34,6 +35,40 @@ public class WalletService {
         wallet.addFiat(amount);
         walletRepository.save(wallet);
     }
+
+    public String buyReserveCrypto(int userId, String cryptoSymbol, BigDecimal amount) {
+        Wallet wallet = walletRepository.findByUserId(userId);
+        if (wallet == null) {
+            return "Wallet not found for user ID: " + userId;
+        }
+
+        Crypto crypto = exchange.getCryptoBySymbol(cryptoSymbol);
+        if (crypto == null) {
+            return "Invalid cryptocurrency selected.";
+        }
+
+        BigDecimal totalCost = crypto.getMarketPrice().multiply(amount);
+        if (wallet.getFiatBalance().compareTo(totalCost) >= 0) {
+            int availableStock = exchange.getCryptoStock(cryptoSymbol);
+            if (availableStock < amount.intValue()) {
+                return "Insufficient crypto stock in the exchange.";
+            }
+
+            wallet.deductFiat(totalCost);
+            wallet.addCrypto(crypto, amount);
+            exchange.reduceCryptoStock(cryptoSymbol, amount.intValue());
+            walletRepository.save(wallet);
+
+            return "Purchase successful! You bought " + amount + " " + crypto.getName();
+        } else {
+            return "Insufficient funds to complete the purchase.";
+        }
+    }
+
+    public Exchange getExchange() {
+        return exchange;
+    }
+
 
     public Wallet getWalletBalance(int userId) {
         return walletRepository.findByUserId(userId);

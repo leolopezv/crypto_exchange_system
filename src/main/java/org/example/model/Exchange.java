@@ -27,11 +27,27 @@ public class Exchange {
         return cryptoMap.get(symbol);
     }
 
+    public int getCryptoStock(String symbol) {
+        return cryptoReserves.getOrDefault(symbol, 0);
+    }
+
+    public void reduceCryptoStock(String symbol, int quantity) {
+        int currentStock = cryptoReserves.get(symbol);
+        cryptoReserves.put(symbol, currentStock - quantity);
+    }
+
     public Map<String, Crypto> getCryptoMap() {
         return cryptoMap;
     }
 
     public Map<String, Integer> getCryptoReserves() {
         return cryptoReserves;
+    }
+
+    public void showCryptoStock() {
+        System.out.println("Current Exchange Stock:");
+        for (Map.Entry<String, Integer> entry : cryptoReserves.entrySet()) {
+            System.out.println(entry.getKey() + ": " + entry.getValue());
+        }
     }
 }
