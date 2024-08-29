@@ -10,15 +10,21 @@ public class ConsoleView {
     private static final String BLUE = "\u001B[34m";
 
     protected final Scanner scanner = new Scanner(System.in);
-    private static final int INVALID= -1;
 
     public int getUserChoice() {
         try {
-            return scanner.nextInt();
+            int choice = scanner.nextInt();
+            scanner.nextLine();
+            return choice;
         } catch (InputMismatchException e) {
             scanner.nextLine();
-            return INVALID;
+            return -1;
         }
+    }
+
+    public String getUserInput(String prompt) {
+        System.out.print(prompt);
+        return scanner.nextLine();
     }
 
     public void showError(String error) {

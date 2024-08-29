@@ -7,7 +7,6 @@ import org.example.service.UserService;
 import org.example.service.WalletService;
 import org.example.view.ConsoleView;
 import org.example.view.MenuViews;
-import org.example.view.RegistrationView;
 import org.example.view.WalletView;
 
 public class RootController {
@@ -22,10 +21,11 @@ public class RootController {
 
         WalletRepositoryInMemory walletRepository = new WalletRepositoryInMemory();
         Exchange exchange = new Exchange();
-        WalletService walletService = new WalletService(walletRepository, exchange);
 
+        WalletService walletService = new WalletService(walletRepository, exchange);
         UserService userService = new UserService(new UserRepositoryInMemory(), walletRepository);
-        this.userController = new UserController(userService, new RegistrationView());
+
+        this.userController = new UserController(userService, consoleView);
         this.walletController = new WalletController(walletService, new WalletView());
     }
 
@@ -43,16 +43,10 @@ public class RootController {
         menuViews.showWelcomeMenu(consoleView);
         int choice = consoleView.getUserChoice();
         switch (choice) {
-            case 1:
-                userController.registerUser();
-                break;
-            case 2:
-                userController.loginUser();
-                break;
-            case 3:
-                System.exit(0);
-            default:
-                consoleView.showError("Oops! Look out for errors.");
+            case 1 -> userController.registerUser();
+            case 2 -> userController.loginUser();
+            case 3 -> quitApplication();
+            default -> showInvalidOption();
         }
     }
 
@@ -60,23 +54,21 @@ public class RootController {
         menuViews.showExchangingMenu(consoleView, userController.getLoggedInUserName());
         int choice = consoleView.getUserChoice();
         switch (choice) {
-            case 1:
-                walletController.depositMoney(userController.getLoggedInUserId());
-                break;
-            case 2:
-                walletController.viewWalletBalance(userController.getLoggedInUserId());
-                break;
-            case 3:
-                walletController.buyReserveCrypto(userController.getLoggedInUserId());
-                break;
-            case 4:
-                // Soon
-                break;
-            case 5:
-                userController.logoutUser();
-                break;
-            default:
-                consoleView.showError("That was not supposed to happen! Try again.");
+            case 1 -> walletController.depositMoney(userController.getLoggedInUserId());
+            case 2 -> walletController.viewWalletBalance(userController.getLoggedInUserId());
+            case 3 -> walletController.buyReserveCrypto(userController.getLoggedInUserId());
+            case 4 -> consoleView.showMessage("Feature coming soon...");
+            case 5 -> userController.logoutUser();
+            default -> showInvalidOption();
         }
+    }
+
+    private void quitApplication() {
+        consoleView.showMessage("Exiting...");
+        System.exit(0);
+    }
+
+    private void showInvalidOption() {
+        consoleView.showError("Wrong choice, try again.");
     }
 }

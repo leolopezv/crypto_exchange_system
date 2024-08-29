@@ -17,30 +17,31 @@ public class WalletService {
     }
 
     public Wallet getWalletByUserId(int userId) {
-        return findWalletByUserId(userId);
+        return walletRepository.findByUserId(userId);
     }
 
     public void depositFiat(int userId, BigDecimal amount) {
-        Wallet wallet = findWalletByUserId(userId);
-        if (wallet == null) return;
-        wallet.addFiat(amount);
-        walletRepository.save(wallet);
+        Wallet wallet = getWalletByUserId(userId);
+        if (wallet != null) {
+            wallet.addFiat(amount);
+            walletRepository.save(wallet);
+        }
     }
 
-    public boolean buyReserveCrypto(int userId, String cryptoSymbol, BigDecimal amount) {
-        Wallet wallet = findWalletByUserId(userId);
+    public String buyReserveCrypto(int userId, String cryptoSymbol, BigDecimal amount) {
+        Wallet wallet = getWalletByUserId(userId);
         Crypto crypto = exchange.getCryptoBySymbol(cryptoSymbol);
-        if (wallet == null || crypto == null) return false;
+        if (wallet == null || crypto == null) return "Wallet or crypto not found";
 
         BigDecimal totalCost = crypto.getMarketPrice().multiply(amount);
         int availableStock = exchange.getCryptoStock(cryptoSymbol);
-        if (wallet.getFiatBalance().compareTo(totalCost) < 0 || availableStock < amount.intValue() ) return false;
+        if (wallet.getFiatBalance().compareTo(totalCost) < 0 || availableStock < amount.intValue() ) return "Insufficient funds or stock";
 
         wallet.deductFiat(totalCost);
         wallet.addCrypto(crypto, amount);
         exchange.reduceCryptoStock(cryptoSymbol, amount.intValue());
         walletRepository.save(wallet);
-        return true;
+        return "Purchase successful";
     }
 
     public Exchange getExchange() {
@@ -49,11 +50,5 @@ public class WalletService {
 
     public Wallet getWalletBalance(int userId) {
         return walletRepository.findByUserId(userId);
-    }
-
-    private Wallet findWalletByUserId(int userId) {
-        Wallet wallet = walletRepository.findByUserId(userId);
-        if (wallet == null) System.out.println("Wallet not found for user ID: " + userId);
-        return wallet;
     }
 }

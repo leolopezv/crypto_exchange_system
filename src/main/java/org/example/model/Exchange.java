@@ -1,6 +1,7 @@
 package org.example.model;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Exchange {
@@ -41,5 +42,9 @@ public class Exchange {
         for (Map.Entry<String, Integer> entry : cryptoReserves.entrySet()) {
             System.out.println(entry.getKey() + ": " + entry.getValue());
         }
+    }
+
+    public List<String> getAvailableCryptoSymbols() {
+        return List.copyOf(cryptoMap.keySet());
     }
 }

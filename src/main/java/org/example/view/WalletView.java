@@ -1,33 +1,41 @@
 package org.example.view;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Map;
 
 public class WalletView extends ConsoleView {
     public BigDecimal getUserAmount() {
         while (true) {
-            System.out.print("Enter your desired amount: ");
+            System.out.print("Enter amount: ");
             try {
                 BigDecimal amount = scanner.nextBigDecimal();
                 if (amount.compareTo(BigDecimal.ZERO) <= 0) {
-                    showError("Invalid amount. Please enter a positive number.");
+                    showError("Amount must be positive.");
                 } else {
                     return amount;
                 }
             } catch (Exception e) {
                 scanner.nextLine();
-                showError("Invalid input. Please enter a valid number.");
+                showError("Should be a valid number.");
             }
         }
     }
 
     public void showWalletBalance(BigDecimal fiatBalance, Map<String, BigDecimal> cryptoBalance) {
         System.out.println("Wallet fiat money balance: " + fiatBalance);
-        System.out.println("Wallet cryptocurrency balances: BTC: " + cryptoBalance.get("BTC") + " | ETH: " + cryptoBalance.get("ETH"));
+        cryptoBalance.forEach((crypto, balance) -> System.out.println(crypto + ": " + balance));
     }
 
-    public String getCryptoSymbol() {
-        System.out.print("Enter the symbol of the cryptocurrency you want to buy [BTC/ETH]: ");
-        return scanner.next();
+    public String getCryptoSymbol(List<String> validSymbols) {
+        while (true) {
+            System.out.print("Enter a symbol " + validSymbols + ": ");
+            String symbol = scanner.next();
+            if (validSymbols.contains(symbol)) {
+                return symbol;
+            } else {
+                showError("Invalid symbol. Enter one of these: " + validSymbols);
+            }
+        }
     }
 }

@@ -3,7 +3,9 @@ package org.example.controller;
 import org.example.model.Wallet;
 import org.example.service.WalletService;
 import org.example.view.WalletView;
+
 import java.math.BigDecimal;
+import java.util.List;
 
 public class WalletController {
     private final WalletService walletService;
@@ -22,22 +24,18 @@ public class WalletController {
 
     public void viewWalletBalance(int userId) {
         Wallet wallet = walletService.getWalletByUserId(userId);
-        if (wallet == null) {
-            walletView.showError("Wallet not found for userId: " + userId);
-            return;
+        if (wallet != null) {
+            walletView.showWalletBalance(wallet.getFiatBalance(), wallet.getCryptocurrencyBalance());
+        } else {
+            walletView.showError("Wallet not found. ID: " + userId);
         }
-        walletView.showWalletBalance(wallet.getFiatBalance(), wallet.getCryptocurrencyBalance());
     }
 
     public void buyReserveCrypto(int userId) {
-        String cryptoSymbol = walletView.getCryptoSymbol();
+        List<String> validSymbols = walletService.getExchange().getAvailableCryptoSymbols();
+        String cryptoSymbol = walletView.getCryptoSymbol(validSymbols);
         BigDecimal amount = walletView.getUserAmount();
-        boolean result = walletService.buyReserveCrypto(userId, cryptoSymbol, amount);
-        if (result) {
-            walletView.showSuccess("Purchase successful!");
-        } else {
-            walletView.showError("Purchase failed.");
-        }
+        walletView.showMessage(walletService.buyReserveCrypto(userId, cryptoSymbol, amount));
         walletService.getExchange().showCryptoStock();
     }
 }

@@ -2,45 +2,44 @@ package org.example.controller;
 
 import org.example.model.User;
 import org.example.service.UserService;
-import org.example.view.RegistrationView;
+import org.example.view.ConsoleView;
 
 public class UserController {
     private UserService userService;
-    private RegistrationView registrationView;
+    private ConsoleView consoleView;
     private User loggedInUser;
 
-    public UserController(UserService userService, RegistrationView registrationView) {
+    public UserController(UserService userService, ConsoleView consoleView) {
         this.userService = userService;
-        this.registrationView = registrationView;
+        this.consoleView = consoleView;
     }
 
     public void registerUser() {
-        String name = registrationView.getNameInput();
-        String email = registrationView.getEmailInput();
-        String password = registrationView.getPasswordInput();
+        String name = consoleView.getUserInput("Enter your name: ");
+        String email = consoleView.getUserInput("Enter your email: ");
+        String password = consoleView.getUserInput("Enter your password: ");
         User newUser = userService.registerUser(name, email, password);
         if (newUser != null) {
-            registrationView.showSuccess("User registered successfully.");
+            consoleView.showSuccess("Successful registration.");
         } else {
-            registrationView.showError("Credentials already taken.");
+            consoleView.showError("Email already in use.");
         }
     }
 
     public void loginUser() {
-        String email = registrationView.getEmailInput();
-        String password = registrationView.getPasswordInput();
-        User user = userService.authenticateUser(email, password);
-        if (user != null) {
-            loggedInUser = user;
-            registrationView.showSuccess("You have logged in! Hi " + user.getName());
+        String email = consoleView.getUserInput("Enter your email: ");
+        String password = consoleView.getUserInput("Enter your password: ");
+        loggedInUser = userService.authenticateUser(email, password);
+        if (loggedInUser != null) {
+            consoleView.showSuccess("Hi " + loggedInUser.getName() + "!");
         } else {
-            registrationView.showError("Invalid! Check your email and password.");
+            consoleView.showError("Invalid credentials.");
         }
     }
 
     public void logoutUser() {
         loggedInUser = null;
-        registrationView.showSuccess("You have logged out successfully.");
+        consoleView.showSuccess("You have logged out.");
     }
 
     public boolean isLoggedIn() {
@@ -48,10 +47,10 @@ public class UserController {
     }
 
     public String getLoggedInUserName() {
-        return loggedInUser != null ? loggedInUser.getName() : "";
+        return isLoggedIn() ? loggedInUser.getName() : "";
     }
 
     public int getLoggedInUserId() {
-        return loggedInUser != null ? loggedInUser.getUserId() : -1;
+        return isLoggedIn() ? loggedInUser.getUserId() : -1;
     }
 }
