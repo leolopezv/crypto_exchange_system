@@ -34,12 +34,12 @@ public class WalletService {
         if (wallet == null || crypto == null) return "Wallet or crypto not found";
 
         BigDecimal totalCost = crypto.getMarketPrice().multiply(amount);
-        int availableStock = exchange.getCryptoStock(cryptoSymbol);
-        if (wallet.getFiatBalance().compareTo(totalCost) < 0 || availableStock < amount.intValue() ) return "Insufficient funds or stock";
+        BigDecimal availableStock = exchange.getCryptoStock(cryptoSymbol);
+        if (wallet.getFiatBalance().compareTo(totalCost) < 0 || availableStock.compareTo(amount) < 0) return "Insufficient funds or stock";
 
         wallet.deductFiat(totalCost);
         wallet.addCrypto(crypto, amount);
-        exchange.reduceCryptoStock(cryptoSymbol, amount.intValue());
+        exchange.reduceCryptoStock(cryptoSymbol, amount);
         walletRepository.save(wallet);
         return "Purchase successful";
     }
