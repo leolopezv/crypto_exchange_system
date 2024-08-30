@@ -9,11 +9,17 @@ import java.math.BigDecimal;
 
 public class WalletService {
     private final WalletRepository walletRepository;
-    private Exchange exchange;
+    private final Exchange exchange;
+    private OrderService orderService;
 
-    public WalletService(WalletRepository walletRepository, Exchange exchange) {
+    public WalletService(WalletRepository walletRepository, Exchange exchange, OrderService orderService) {
         this.walletRepository = walletRepository;
         this.exchange = exchange;
+        this.orderService = orderService;
+    }
+
+    public void setOrderService(OrderService orderService) {
+        this.orderService = orderService;
     }
 
     public Wallet getWalletByUserId(int userId) {
@@ -44,11 +50,47 @@ public class WalletService {
         return "Purchase successful";
     }
 
+    public void placeBuyOrder(int userId, String cryptoSymbol, BigDecimal amount, BigDecimal maxPrice) {
+        orderService.placeBuyOrder(userId, cryptoSymbol, amount, maxPrice);
+    }
+
+    public void placeSellOrder(int userId, String cryptoSymbol, BigDecimal amount, BigDecimal minPrice) {
+        orderService.placeSellOrder(userId, cryptoSymbol, amount, minPrice);
+    }
+
     public Exchange getExchange() {
         return exchange;
     }
 
     public Wallet getWalletBalance(int userId) {
         return walletRepository.findByUserId(userId);
+    }
+
+    public void transferCrypto(int sellerId, int buyerId, String cryptoSymbol, BigDecimal amount) {
+        Wallet sellerWallet = getWalletByUserId(sellerId);
+        Wallet buyerWallet = getWalletByUserId(buyerId);
+
+        // Deduct crypto from seller
+        sellerWallet.deductCrypto(cryptoSymbol, amount);
+
+        // Add crypto to buyer
+        buyerWallet.addCrypto(exchange.getCryptoBySymbol(cryptoSymbol), amount);
+
+        walletRepository.save(sellerWallet);
+        walletRepository.save(buyerWallet);
+    }
+
+    public void transferFiat(int buyerId, int sellerId, BigDecimal amount) {
+        Wallet buyerWallet = getWalletByUserId(buyerId);
+        Wallet sellerWallet = getWalletByUserId(sellerId);
+
+        // Deduct fiat from buyer
+        buyerWallet.deductFiat(amount);
+
+        // Add fiat to seller
+        sellerWallet.addFiat(amount);
+
+        walletRepository.save(buyerWallet);
+        walletRepository.save(sellerWallet);
     }
 }

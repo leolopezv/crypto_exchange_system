@@ -14,7 +14,8 @@ public class MenuViews {
         consoleView.showMessage("1. Deposit money");
         consoleView.showMessage("2. View wallet balance");
         consoleView.showMessage("3. Buy crypto from the Exchange");
-        consoleView.showMessage("4. Soon");
-        consoleView.showMessage("5. Log out");
+        consoleView.showMessage("4. Place Buy Order");
+        consoleView.showMessage("5. Place Sell Order");
+        consoleView.showMessage("6. Log out");
     }
 }

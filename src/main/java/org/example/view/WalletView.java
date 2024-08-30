@@ -5,9 +5,9 @@ import java.util.List;
 import java.util.Map;
 
 public class WalletView extends ConsoleView {
-    public BigDecimal getUserAmount() {
+    public BigDecimal getUserAmount(String prompt) {
         while (true) {
-            System.out.print("Enter amount: ");
+            System.out.print(prompt);
             try {
                 BigDecimal amount = scanner.nextBigDecimal();
                 if (amount.compareTo(BigDecimal.ZERO) <= 0) {

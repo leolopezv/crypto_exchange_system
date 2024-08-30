@@ -3,8 +3,10 @@ package org.example.controller;
 import org.example.model.Exchange;
 import org.example.repository.UserRepositoryInMemory;
 import org.example.repository.WalletRepositoryInMemory;
+import org.example.repository.OrderRepositoryInMemory;
 import org.example.service.UserService;
 import org.example.service.WalletService;
+import org.example.service.OrderService;
 import org.example.view.ConsoleView;
 import org.example.view.MenuViews;
 import org.example.view.WalletView;
@@ -20,9 +22,15 @@ public class RootController {
         this.menuViews = new MenuViews();
 
         WalletRepositoryInMemory walletRepository = new WalletRepositoryInMemory();
+        OrderRepositoryInMemory orderRepository = new OrderRepositoryInMemory();
         Exchange exchange = new Exchange();
 
-        WalletService walletService = new WalletService(walletRepository, exchange);
+        WalletService walletService = new WalletService(walletRepository, exchange, null);
+
+        OrderService orderService = new OrderService(orderRepository, walletService);
+
+        walletService.setOrderService(orderService);
+
         UserService userService = new UserService(new UserRepositoryInMemory(), walletRepository);
 
         this.userController = new UserController(userService, consoleView);
@@ -57,8 +65,9 @@ public class RootController {
             case 1 -> walletController.depositMoney(userController.getLoggedInUserId());
             case 2 -> walletController.viewWalletBalance(userController.getLoggedInUserId());
             case 3 -> walletController.buyReserveCrypto(userController.getLoggedInUserId());
-            case 4 -> consoleView.showMessage("Feature coming soon...");
-            case 5 -> userController.logoutUser();
+            case 4 -> walletController.placeBuyOrder(userController.getLoggedInUserId());
+            case 5 -> walletController.placeSellOrder(userController.getLoggedInUserId());
+            case 6 -> userController.logoutUser();
             default -> showInvalidOption();
         }
     }
