@@ -42,12 +42,8 @@ public class Wallet {
         cryptoBalance.put(crypto.getSymbol(), currentAmount.add(amount));
     }
 
-    public void deductCrypto(String cryptoSymbol, BigDecimal amount) {
-        BigDecimal currentAmount = cryptoBalance.get(cryptoSymbol);
-        if (currentAmount.compareTo(amount) >= 0) {
-            cryptoBalance.put(cryptoSymbol, currentAmount.subtract(amount));
-        } else {
-            throw new IllegalArgumentException("Insufficient crypto balance to deduct.");
-        }
+    public void deductCrypto(Crypto crypto, BigDecimal amount) {
+        BigDecimal currentAmount = cryptoBalance.get(crypto.getSymbol());
+        cryptoBalance.put(crypto.getSymbol(), currentAmount.subtract(amount));
     }
 }

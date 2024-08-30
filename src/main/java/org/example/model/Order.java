@@ -8,15 +8,13 @@ public abstract class Order {
     protected int userId;
     protected String cryptoSymbol;
     protected BigDecimal amount;
-    protected BigDecimal price;
     protected Date date;
 
-    public Order(int userId, String cryptoSymbol, BigDecimal amount, BigDecimal price) {
+    public Order(int userId, String cryptoSymbol, BigDecimal amount) {
         this.userId = userId;
         this.cryptoSymbol = cryptoSymbol;
         this.amount = amount;
-        this.price = price;
-        this.date = new Date(); // Automatically set the order date to current date
+        this.date = new Date();
     }
 
     public int getOrderId() {
@@ -37,10 +35,6 @@ public abstract class Order {
 
     public BigDecimal getAmount() {
         return amount;
-    }
-
-    public BigDecimal getPrice() {
-        return price;
     }
 
     public Date getDate() {

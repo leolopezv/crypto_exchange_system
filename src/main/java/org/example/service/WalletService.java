@@ -66,31 +66,30 @@ public class WalletService {
         return walletRepository.findByUserId(userId);
     }
 
-    public void transferCrypto(int sellerId, int buyerId, String cryptoSymbol, BigDecimal amount) {
-        Wallet sellerWallet = getWalletByUserId(sellerId);
-        Wallet buyerWallet = getWalletByUserId(buyerId);
-
-        // Deduct crypto from seller
-        sellerWallet.deductCrypto(cryptoSymbol, amount);
-
-        // Add crypto to buyer
-        buyerWallet.addCrypto(exchange.getCryptoBySymbol(cryptoSymbol), amount);
-
-        walletRepository.save(sellerWallet);
-        walletRepository.save(buyerWallet);
+    public boolean hasSufficientCrypto(int userId, String crypto, BigDecimal amount) {
+        Wallet wallet = getWalletByUserId(userId);
+        return wallet != null && wallet.getCryptoBalance().get(crypto).compareTo(amount) >= 0;
     }
 
-    public void transferFiat(int buyerId, int sellerId, BigDecimal amount) {
-        Wallet buyerWallet = getWalletByUserId(buyerId);
-        Wallet sellerWallet = getWalletByUserId(sellerId);
+    public void transferCrypto(int fromUserId, int toUserId, String cryptoSymbol, BigDecimal amount) {
+        Wallet fromWallet = getWalletByUserId(fromUserId);
+        Wallet toWallet = getWalletByUserId(toUserId);
 
-        // Deduct fiat from buyer
-        buyerWallet.deductFiat(amount);
+        fromWallet.deductCrypto(exchange.getCryptoBySymbol(cryptoSymbol), amount);
+        toWallet.addCrypto(exchange.getCryptoBySymbol(cryptoSymbol), amount);
 
-        // Add fiat to seller
-        sellerWallet.addFiat(amount);
+        walletRepository.save(fromWallet);
+        walletRepository.save(toWallet);
+    }
 
-        walletRepository.save(buyerWallet);
-        walletRepository.save(sellerWallet);
+    public void transferFiat(int fromUserId, int toUserId, BigDecimal amount) {
+        Wallet fromWallet = getWalletByUserId(fromUserId);
+        Wallet toWallet = getWalletByUserId(toUserId);
+
+        fromWallet.deductFiat(amount);
+        toWallet.addFiat(amount);
+
+        walletRepository.save(fromWallet);
+        walletRepository.save(toWallet);
     }
 }

@@ -11,7 +11,7 @@ public class WalletRepositoryInMemory implements WalletRepository {
     @Override
     public void save(Wallet wallet) {
         walletLocation.put(wallet.getUserId(), wallet);
-        System.out.println("Wallet saved for userId: " + wallet.getUserId());
+        //System.out.println("Wallet saved for userId: " + wallet.getUserId());
     }
 
     @Override

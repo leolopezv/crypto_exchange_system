@@ -35,9 +35,16 @@ public class OrderBook {
     }
 
     public void matchOrders(Order order) {
+        if (order instanceof SellOrder) {
+            SellOrder sellOrder = (SellOrder) order;
+            if (!walletService.hasSufficientCrypto(sellOrder.getUserId(), sellOrder.getCryptoSymbol(), sellOrder.getAmount())) {
+                System.out.println("Error: Insufficient crypto balance to place sell order.");
+                return;
+            }
+        }
+
         Order matchingOrder = findMatchingOrder(order);
         if (matchingOrder != null) {
-            // Execute the transaction, update wallets, and print transaction details
             executeTransaction(order, matchingOrder);
         } else {
             addOrder(order);
@@ -49,18 +56,13 @@ public class OrderBook {
             BuyOrder bOrder = (BuyOrder) buyOrder;
             SellOrder sOrder = (SellOrder) sellOrder;
 
-            // Transfer the cryptocurrency from seller to buyer
             walletService.transferCrypto(sOrder.getUserId(), bOrder.getUserId(), sOrder.getCryptoSymbol(), sOrder.getAmount());
-
-            // Transfer the fiat money from buyer to seller
             walletService.transferFiat(bOrder.getUserId(), sOrder.getUserId(), sOrder.getMinPrice().multiply(sOrder.getAmount()));
 
-            // Print transaction details
             System.out.println("Transaction executed successfully:");
             System.out.println("Buyer: " + bOrder);
             System.out.println("Seller: " + sOrder);
 
-            // Remove orders after execution
             removeOrder(buyOrder);
             removeOrder(sellOrder);
         } else if (buyOrder instanceof SellOrder && sellOrder instanceof BuyOrder) {

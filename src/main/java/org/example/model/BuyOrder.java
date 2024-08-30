@@ -6,7 +6,7 @@ public class BuyOrder extends Order {
     private BigDecimal maxPrice;
 
     public BuyOrder(int userId, String cryptoSymbol, BigDecimal amount, BigDecimal maxPrice) {
-        super(userId, cryptoSymbol, amount, maxPrice);
+        super(userId, cryptoSymbol, amount);
         this.maxPrice = maxPrice;
     }
 

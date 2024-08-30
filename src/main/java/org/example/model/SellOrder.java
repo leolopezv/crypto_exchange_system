@@ -6,7 +6,7 @@ public class SellOrder extends Order {
     private BigDecimal minPrice;
 
     public SellOrder(int userId, String cryptoSymbol, BigDecimal amount, BigDecimal minPrice) {
-        super(userId, cryptoSymbol, amount, minPrice);
+        super(userId, cryptoSymbol, amount);
         this.minPrice = minPrice;
     }
 
