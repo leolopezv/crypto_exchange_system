@@ -1,13 +1,13 @@
 package org.example.service;
 
-import org.example.model.Exchange;
 import org.example.model.OrderBook;
 import org.example.repository.*;
 import org.example.repository.iRepository.OrderRepository;
 import org.example.repository.iRepository.UserRepository;
 import org.example.repository.iRepository.WalletRepository;
+import org.example.service.iService.AppBootFactory;
 import org.example.view.MenuViews;
-import org.example.view.WalletView;
+import org.example.view.MoneyView;
 
 public class AppBootFactoryService implements AppBootFactory {
 
@@ -27,8 +27,8 @@ public class AppBootFactoryService implements AppBootFactory {
     }
 
     @Override
-    public WalletService createWalletService(WalletRepository walletRepository, Exchange exchange) {
-        return new WalletService(walletRepository, exchange, null);
+    public WalletService createWalletService(WalletRepository walletRepository) {
+        return new WalletService(walletRepository);
     }
 
     @Override
@@ -37,13 +37,13 @@ public class AppBootFactoryService implements AppBootFactory {
     }
 
     @Override
-    public TransferService createTransferService(WalletRepository walletRepository, Exchange exchange) {
-        return new TransferService(walletRepository, exchange);
+    public TransferService createTransferService(WalletRepository walletRepository) {
+        return new TransferService(walletRepository);
     }
 
     @Override
     public OrderService createOrderService(OrderRepository orderRepository, BalanceService balanceService, TransferService transferService) {
-        return new OrderService(new OrderBook(orderRepository, balanceService, transferService), balanceService);
+        return new OrderService(balanceService, new OrderBook(orderRepository, balanceService, transferService));
     }
 
     @Override
@@ -52,8 +52,8 @@ public class AppBootFactoryService implements AppBootFactory {
     }
 
     @Override
-    public WalletView createWalletView() {
-        return new WalletView();
+    public MoneyView createWalletView() {
+        return new MoneyView();
     }
 
     @Override

@@ -3,18 +3,21 @@ package org.example.service;
 import org.example.model.BuyOrder;
 import org.example.model.OrderBook;
 import org.example.model.SellOrder;
+import org.example.service.iService.IBalanceService;
+import org.example.service.iService.IOrderService;
 
 import java.math.BigDecimal;
 
-public class OrderService {
+public class OrderService implements IOrderService {
     private final OrderBook orderBook;
-    private final BalanceService balanceService;
+    private final IBalanceService balanceService;
 
-    public OrderService(OrderBook orderBook, BalanceService balanceService) {
-        this.orderBook = orderBook;
+    public OrderService(IBalanceService balanceService, OrderBook orderBook) {
         this.balanceService = balanceService;
+        this.orderBook = orderBook;
     }
 
+    @Override
     public void placeBuyOrder(int userId, String cryptoSymbol, BigDecimal amount, BigDecimal maxPrice) {
         BigDecimal newOrderCost = amount.multiply(maxPrice);
 
@@ -26,6 +29,7 @@ public class OrderService {
         orderBook.matchOrders(order);
     }
 
+    @Override
     public void placeSellOrder(int userId, String cryptoSymbol, BigDecimal amount, BigDecimal minPrice) {
         if (!balanceService.hasSufficientCrypto(userId, cryptoSymbol, amount)) {
             System.out.println("Insufficient crypto to place sell order.");

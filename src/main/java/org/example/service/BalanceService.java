@@ -6,11 +6,12 @@ import org.example.model.SellOrder;
 import org.example.model.Wallet;
 import org.example.repository.iRepository.OrderRepository;
 import org.example.repository.iRepository.WalletRepository;
+import org.example.service.iService.IBalanceService;
 
 import java.math.BigDecimal;
 import java.util.List;
 
-public class BalanceService {
+public class BalanceService implements IBalanceService {
     private final WalletRepository walletRepository;
     private final OrderRepository orderRepository;
 
@@ -19,6 +20,7 @@ public class BalanceService {
         this.orderRepository = orderRepository;
     }
 
+    @Override
     public boolean hasSufficientCrypto(int userId, String cryptoSymbol, BigDecimal newOrderAmount) {
         Wallet wallet = walletRepository.findByUserId(userId);
         if (wallet == null) return false;
@@ -40,6 +42,7 @@ public class BalanceService {
         return total;
     }
 
+    @Override
     public boolean hasSufficientFiat(int userId, BigDecimal newOrderCost) {
         Wallet wallet = walletRepository.findByUserId(userId);
         if (wallet == null) return false;

@@ -9,11 +9,11 @@ public class MenuController {
     private final LoginPanelController loginPanelController;
     private final ExchangePanelController exchangePanelController;
 
-    public MenuController(ConsoleView consoleView, MenuViews menuViews, UserController userController, WalletController walletController) {
+    public MenuController(ConsoleView consoleView, MenuViews menuViews, UserController userController, WalletController walletController, OrderController orderController) {
         this.consoleView = consoleView;
         this.menuViews = menuViews;
         this.loginPanelController = new LoginPanelController(consoleView, menuViews, userController);
-        this.exchangePanelController = new ExchangePanelController(consoleView, menuViews, userController, walletController);
+        this.exchangePanelController = new ExchangePanelController(consoleView, menuViews, userController, walletController, orderController);
     }
 
     public void displayMenu() {

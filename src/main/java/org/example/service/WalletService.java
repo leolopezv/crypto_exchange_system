@@ -1,31 +1,27 @@
 package org.example.service;
 
+import org.example.model.Wallet;
 import org.example.model.Crypto;
 import org.example.model.Exchange;
-import org.example.model.Wallet;
 import org.example.repository.iRepository.WalletRepository;
+import org.example.service.iService.IWalletService;
 
 import java.math.BigDecimal;
 
-public class WalletService {
+public class WalletService implements IWalletService {
     private final WalletRepository walletRepository;
-    private final Exchange exchange;
-    private OrderService orderService;
+    private final Exchange exchange = Exchange.getInstance();
 
-    public WalletService(WalletRepository walletRepository, Exchange exchange, OrderService orderService) {
+    public WalletService(WalletRepository walletRepository) {
         this.walletRepository = walletRepository;
-        this.exchange = exchange;
-        this.orderService = orderService;
     }
 
-    public void setOrderService(OrderService orderService) {
-        this.orderService = orderService;
-    }
-
+    @Override
     public Wallet getWalletByUserId(int userId) {
         return walletRepository.findByUserId(userId);
     }
 
+    @Override
     public void depositFiat(int userId, BigDecimal amount) {
         Wallet wallet = getWalletByUserId(userId);
         if (wallet != null) {
@@ -34,6 +30,7 @@ public class WalletService {
         }
     }
 
+    @Override
     public String buyReserveCrypto(int userId, String cryptoSymbol, BigDecimal amount) {
         Wallet wallet = getWalletByUserId(userId);
         Crypto crypto = exchange.getCryptoBySymbol(cryptoSymbol);
@@ -50,18 +47,7 @@ public class WalletService {
         return "Purchase successful";
     }
 
-    public void placeBuyOrder(int userId, String cryptoSymbol, BigDecimal amount, BigDecimal maxPrice) {
-        orderService.placeBuyOrder(userId, cryptoSymbol, amount, maxPrice);
-    }
-
-    public void placeSellOrder(int userId, String cryptoSymbol, BigDecimal amount, BigDecimal minPrice) {
-        orderService.placeSellOrder(userId, cryptoSymbol, amount, minPrice);
-    }
-
-    public Exchange getExchange() {
-        return exchange;
-    }
-
+    @Override
     public Wallet getWalletBalance(int userId) {
         return walletRepository.findByUserId(userId);
     }
