@@ -1,17 +1,20 @@
 package org.example.model;
 
 import org.example.repository.OrderRepository;
-import org.example.service.WalletService;
+import org.example.service.BalanceService;
+import org.example.service.TransferService;
 
 import java.util.List;
 
 public class OrderBook {
     private final OrderRepository orderRepository;
-    private final WalletService walletService;
+    private final BalanceService balanceService;
+    private final TransferService transferService;
 
-    public OrderBook(OrderRepository orderRepository, WalletService walletService) {
+    public OrderBook(OrderRepository orderRepository, BalanceService balanceService, TransferService transferService) {
         this.orderRepository = orderRepository;
-        this.walletService = walletService;
+        this.balanceService = balanceService;
+        this.transferService = transferService;
     }
 
     public void addOrder(Order order) {
@@ -37,7 +40,7 @@ public class OrderBook {
     public void matchOrders(Order order) {
         if (order instanceof SellOrder) {
             SellOrder sellOrder = (SellOrder) order;
-            if (!walletService.hasSufficientCrypto(sellOrder.getUserId(), sellOrder.getCryptoSymbol(), sellOrder.getAmount())) {
+            if (!balanceService.hasSufficientCrypto(sellOrder.getUserId(), sellOrder.getCryptoSymbol(), sellOrder.getAmount())) {
                 System.out.println("Error: Insufficient crypto balance to place sell order.");
                 return;
             }
@@ -56,8 +59,8 @@ public class OrderBook {
             BuyOrder bOrder = (BuyOrder) buyOrder;
             SellOrder sOrder = (SellOrder) sellOrder;
 
-            walletService.transferCrypto(sOrder.getUserId(), bOrder.getUserId(), sOrder.getCryptoSymbol(), sOrder.getAmount());
-            walletService.transferFiat(bOrder.getUserId(), sOrder.getUserId(), sOrder.getMinPrice().multiply(sOrder.getAmount()));
+            transferService.transferCrypto(sOrder.getUserId(), bOrder.getUserId(), sOrder.getCryptoSymbol(), sOrder.getAmount());
+            transferService.transferFiat(bOrder.getUserId(), sOrder.getUserId(), sOrder.getMinPrice().multiply(sOrder.getAmount()));
 
             System.out.println("Transaction executed successfully:");
             System.out.println("Buyer: " + bOrder);
