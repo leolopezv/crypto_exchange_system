@@ -1,9 +1,9 @@
 package org.example.service;
 
 import org.example.model.User;
-import org.example.repository.UserRepository;
+import org.example.repository.iRepository.UserRepository;
 import org.example.model.Wallet;
-import org.example.repository.WalletRepository;
+import org.example.repository.iRepository.WalletRepository;
 
 public class UserService {
     private UserRepository userRepository;

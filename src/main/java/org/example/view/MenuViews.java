@@ -1,10 +1,10 @@
 package org.example.view;
 
-public class MenuViews {
+public class MenuViews extends ConsoleView {
     public void showWelcomeMenu(ConsoleView consoleView) {
-        consoleView.showMessage("Welcome to Leonardo's Crypto Exchange:");
-        consoleView.showMessage("1. Register");
-        consoleView.showMessage("2. Login");
+        showMessage("Welcome to Leonardo's Crypto Exchange:");
+        showMessage("1. Register");
+        showMessage("2. Login");
         consoleView.showMessage("3. Quit");
         consoleView.showMessage("Enter an option to get into the club: ");
     }
@@ -14,7 +14,8 @@ public class MenuViews {
         consoleView.showMessage("1. Deposit money");
         consoleView.showMessage("2. View wallet balance");
         consoleView.showMessage("3. Buy crypto from the Exchange");
-        consoleView.showMessage("4. Soon");
-        consoleView.showMessage("5. Log out");
+        consoleView.showMessage("4. Place Buy Order");
+        consoleView.showMessage("5. Place Sell Order");
+        consoleView.showMessage("6. Log out");
     }
 }

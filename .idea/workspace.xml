@@ -4,17 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="604e94ce-f48e-4905-a856-7f1f94ed53b6" name="Changes" comment="Fixed: validations for already registers users and deposits of fiat money">
+    <list default="true" id="604e94ce-f48e-4905-a856-7f1f94ed53b6" name="Changes" comment="Updated: Singleton and strategy design patterns have reduced coupling from the project">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controller/RootController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/RootController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/UserController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controller/WalletController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/WalletController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/model/Exchange.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/model/Exchange.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/service/WalletService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/service/WalletService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/view/ConsoleView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/view/ConsoleView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/model/Crypto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/model/Crypto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/model/OrderBook.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/model/OrderBook.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/service/AppBootFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/service/AppBootFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/service/AppBootFactoryService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/service/AppBootFactoryService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/service/AppBootService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/service/AppBootService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/service/BalanceService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/service/BalanceService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/service/OrderService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/service/OrderService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/view/MenuViews.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/view/MenuViews.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/view/RegistrationView.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/view/WalletView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/view/WalletView.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,7 +61,7 @@
     &quot;Application.Main.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;feature/order&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
@@ -121,7 +121,8 @@
       <workItem from="1724779249038" duration="34330000" />
       <workItem from="1724833664450" duration="63000" />
       <workItem from="1724866618279" duration="4606000" />
-      <workItem from="1724885381188" duration="3413000" />
+      <workItem from="1724885381188" duration="25392000" />
+      <workItem from="1725020351215" duration="20107000" />
     </task>
     <task id="LOCAL-00001" summary="Added: user registration logic">
       <option name="closed" value="true" />
@@ -163,7 +164,31 @@
       <option name="project" value="LOCAL" />
       <updated>1724800699947</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Added: Implementation of model, service and repository for Order">
+      <option name="closed" value="true" />
+      <created>1724981057774</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1724981057774</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Updated: The main controller to ease its handling of new classes">
+      <option name="closed" value="true" />
+      <created>1725061377615</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1725061377615</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Updated: Singleton and strategy design patterns have reduced coupling from the project">
+      <option name="closed" value="true" />
+      <created>1725074001533</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1725074001533</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -186,6 +211,9 @@
     <MESSAGE value="Updated: user registration/login has been simplified and explained through comments" />
     <MESSAGE value="Added: wallet creation and connection to user through ID" />
     <MESSAGE value="Fixed: validations for already registers users and deposits of fiat money" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed: validations for already registers users and deposits of fiat money" />
+    <MESSAGE value="Added: Implementation of model, service and repository for Order" />
+    <MESSAGE value="Updated: The main controller to ease its handling of new classes" />
+    <MESSAGE value="Updated: Singleton and strategy design patterns have reduced coupling from the project" />
+    <option name="LAST_COMMIT_MESSAGE" value="Updated: Singleton and strategy design patterns have reduced coupling from the project" />
   </component>
 </project>

@@ -1,6 +1,7 @@
 package org.example.repository;
 
 import org.example.model.Wallet;
+import org.example.repository.iRepository.WalletRepository;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -11,7 +12,7 @@ public class WalletRepositoryInMemory implements WalletRepository {
     @Override
     public void save(Wallet wallet) {
         walletLocation.put(wallet.getUserId(), wallet);
-        System.out.println("Wallet saved for userId: " + wallet.getUserId());
+        //System.out.println("Wallet saved for userId: " + wallet.getUserId());
     }
 
     @Override

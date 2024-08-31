@@ -13,8 +13,12 @@ public class Wallet {
         this.userId = userId;
         this.fiatBalance = BigDecimal.ZERO;
         this.cryptoBalance = new HashMap<>();
-        this.cryptoBalance.put("BTC", BigDecimal.ZERO);
-        this.cryptoBalance.put("ETH", BigDecimal.ZERO);
+        initializeCryptoBalances();
+    }
+
+    private void initializeCryptoBalances() {
+        cryptoBalance.put("BTC", BigDecimal.ZERO);
+        cryptoBalance.put("ETH", BigDecimal.ZERO);
     }
 
     public int getUserId() {
@@ -33,12 +37,17 @@ public class Wallet {
         fiatBalance = fiatBalance.subtract(amount);
     }
 
-    public Map<String, BigDecimal> getCryptocurrencyBalance() {
+    public Map<String, BigDecimal> getCryptoBalance() {
         return cryptoBalance;
     }
 
     public void addCrypto(Crypto crypto, BigDecimal amount) {
         BigDecimal currentAmount = cryptoBalance.get(crypto.getSymbol());
         cryptoBalance.put(crypto.getSymbol(), currentAmount.add(amount));
+    }
+
+    public void deductCrypto(Crypto crypto, BigDecimal amount) {
+        BigDecimal currentAmount = cryptoBalance.get(crypto.getSymbol());
+        cryptoBalance.put(crypto.getSymbol(), currentAmount.subtract(amount));
     }
 }
