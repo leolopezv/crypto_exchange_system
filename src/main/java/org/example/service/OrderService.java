@@ -16,20 +16,22 @@ public class OrderService {
     }
 
     public void placeBuyOrder(int userId, String cryptoSymbol, BigDecimal amount, BigDecimal maxPrice) {
-        BuyOrder order = new BuyOrder(userId, cryptoSymbol, amount, maxPrice);
+        BigDecimal newOrderCost = amount.multiply(maxPrice);
 
-        BigDecimal totalCost = amount.multiply(maxPrice);
-        if (!balanceService.hasSufficientFiat(userId, totalCost)) {
+        if (!balanceService.hasSufficientFiat(userId, newOrderCost)) {
             System.out.println("Insufficient fiat to place buy order.");
             return;
         }
-
+        BuyOrder order = new BuyOrder(userId, cryptoSymbol, amount, maxPrice);
         orderBook.matchOrders(order);
     }
 
     public void placeSellOrder(int userId, String cryptoSymbol, BigDecimal amount, BigDecimal minPrice) {
+        if (!balanceService.hasSufficientCrypto(userId, cryptoSymbol, amount)) {
+            System.out.println("Insufficient crypto to place sell order.");
+            return;
+        }
         SellOrder order = new SellOrder(userId, cryptoSymbol, amount, minPrice);
         orderBook.matchOrders(order);
     }
-
 }

@@ -19,7 +19,7 @@ public class AppBootService {
 
         Exchange exchange = Exchange.getInstance();
         WalletService walletService = factory.createWalletService(walletRepository, exchange);
-        BalanceService balanceService = factory.createBalanceService(walletRepository);
+        BalanceService balanceService = factory.createBalanceService(walletRepository, orderRepository);
         TransferService transferService = factory.createTransferService(walletRepository, exchange);
         OrderService orderService = factory.createOrderService(orderRepository, balanceService, transferService);
         walletService.setOrderService(orderService);

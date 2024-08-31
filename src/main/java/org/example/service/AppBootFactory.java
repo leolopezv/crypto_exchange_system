@@ -12,7 +12,7 @@ public interface AppBootFactory {
     OrderRepository createOrderRepository();
     UserRepository createUserRepository();
     WalletService createWalletService(WalletRepository walletRepository, Exchange exchange);
-    BalanceService createBalanceService(WalletRepository walletRepository);
+    BalanceService createBalanceService(WalletRepository walletRepository, OrderRepository orderRepository);
     TransferService createTransferService(WalletRepository walletRepository, Exchange exchange);
     OrderService createOrderService(OrderRepository orderRepository, BalanceService balanceService, TransferService transferService);
     UserService createUserService(UserRepository userRepository, WalletRepository walletRepository);

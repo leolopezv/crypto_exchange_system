@@ -17,24 +17,13 @@ public class OrderBook {
         this.transferService = transferService;
     }
 
-    public void addOrder(Order order) {
-        orderRepository.save(order);
-    }
-
     public Order findMatchingOrder(Order newOrder) {
         List<Order> orders = orderRepository.findAll();
 
         for (Order existingOrder : orders) {
-            if (existingOrder.matches(newOrder)) {
-                return existingOrder;
-            }
+            if (existingOrder.matches(newOrder)) return existingOrder;
         }
-
         return null;
-    }
-
-    public void removeOrder(Order order) {
-        orderRepository.delete(order);
     }
 
     public void matchOrders(Order order) {
@@ -42,7 +31,6 @@ public class OrderBook {
             System.out.println("Error: Insufficient crypto balance to place sell order.");
             return;
         }
-
         Order matchingOrder = findMatchingOrder(order);
         if (matchingOrder != null) {
             executeTransaction(order, matchingOrder);
@@ -56,13 +44,13 @@ public class OrderBook {
     }
 
     private void executeTransaction(Order buyOrder, Order sellOrder) {
-        if (buyOrder instanceof BuyOrder client && sellOrder instanceof SellOrder seller) {
+        if (buyOrder instanceof BuyOrder buyer && sellOrder instanceof SellOrder seller) {
 
-            transferService.transferCrypto(seller.getUserId(), client.getUserId(), seller.getCryptoSymbol(), seller.getAmount());
-            transferService.transferFiat(client.getUserId(), seller.getUserId(), seller.getMinPrice().multiply(seller.getAmount()));
+            transferService.transferCrypto(seller.getUserId(), buyer.getUserId(), seller.getCryptoSymbol(), seller.getAmount());
+            transferService.transferFiat(buyer.getUserId(), seller.getUserId(), seller.getMinPrice().multiply(seller.getAmount()));
 
             System.out.println("Transaction executed successfully:");
-            System.out.println("Buyer: " + client);
+            System.out.println("Buyer: " + buyer);
             System.out.println("Seller: " + seller);
 
             removeOrder(buyOrder);
@@ -70,5 +58,13 @@ public class OrderBook {
         } else if (buyOrder instanceof SellOrder && sellOrder instanceof BuyOrder) {
             executeTransaction(sellOrder, buyOrder);
         }
+    }
+
+    private void addOrder(Order order) {
+        orderRepository.save(order);
+    }
+
+    private void removeOrder(Order order) {
+        orderRepository.delete(order);
     }
 }

@@ -32,8 +32,8 @@ public class AppBootFactoryService implements AppBootFactory {
     }
 
     @Override
-    public BalanceService createBalanceService(WalletRepository walletRepository) {
-        return new BalanceService(walletRepository);
+    public BalanceService createBalanceService(WalletRepository walletRepository, OrderRepository orderRepository) {
+        return new BalanceService(walletRepository, orderRepository);
     }
 
     @Override
@@ -61,4 +61,3 @@ public class AppBootFactoryService implements AppBootFactory {
         return new MenuViews();
     }
 }
-

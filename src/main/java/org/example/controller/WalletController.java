@@ -42,6 +42,7 @@ public class WalletController {
     public void placeBuyOrder(int userId) {
         List<String> validSymbols = walletService.getExchange().getAvailableCryptoSymbols();
         String cryptoSymbol = walletView.getCryptoSymbol(validSymbols);
+        walletService.getExchange().getCryptoBySymbol(cryptoSymbol).showMarketPrice();
         BigDecimal amount = walletView.getUserAmount("Enter the amount of crypto you want to buy: ");
         BigDecimal maxPrice = walletView.getUserAmount("Enter the maximum price you are willing to pay: ");
         walletService.placeBuyOrder(userId, cryptoSymbol, amount, maxPrice);
@@ -50,6 +51,7 @@ public class WalletController {
     public void placeSellOrder(int userId) {
         List<String> validSymbols = walletService.getExchange().getAvailableCryptoSymbols();
         String cryptoSymbol = walletView.getCryptoSymbol(validSymbols);
+        walletService.getExchange().getCryptoBySymbol(cryptoSymbol).showMarketPrice();
         BigDecimal amount = walletView.getUserAmount("Enter the amount of crypto you want to sell: ");
         BigDecimal minPrice = walletView.getUserAmount("Enter the minimum price you are willing to accept: ");
         walletService.placeSellOrder(userId, cryptoSymbol, amount, minPrice);
