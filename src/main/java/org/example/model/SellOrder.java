@@ -3,7 +3,7 @@ package org.example.model;
 import java.math.BigDecimal;
 
 public class SellOrder extends Order {
-    private BigDecimal minPrice;
+    private final BigDecimal minPrice;
 
     public SellOrder(int userId, String cryptoSymbol, BigDecimal amount, BigDecimal minPrice) {
         super(userId, cryptoSymbol, amount);

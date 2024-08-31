@@ -1,8 +1,9 @@
 package org.example.service;
 
 import org.example.model.Exchange;
-import org.example.repository.*;
-import org.example.service.*;
+import org.example.repository.iRepository.OrderRepository;
+import org.example.repository.iRepository.UserRepository;
+import org.example.repository.iRepository.WalletRepository;
 import org.example.view.MenuViews;
 import org.example.view.WalletView;
 
@@ -10,7 +11,6 @@ public interface AppBootFactory {
     WalletRepository createWalletRepository();
     OrderRepository createOrderRepository();
     UserRepository createUserRepository();
-    Exchange createExchange();
     WalletService createWalletService(WalletRepository walletRepository, Exchange exchange);
     BalanceService createBalanceService(WalletRepository walletRepository);
     TransferService createTransferService(WalletRepository walletRepository, Exchange exchange);
@@ -19,3 +19,4 @@ public interface AppBootFactory {
     WalletView createWalletView();
     MenuViews createMenuViews();
 }
+

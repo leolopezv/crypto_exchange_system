@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 public class Exchange {
+    private static Exchange instance;
     private Map<String, Crypto> cryptoMap;
     private Map<String, BigDecimal> cryptoReserves;
 
@@ -13,6 +14,13 @@ public class Exchange {
         this.cryptoMap = new HashMap<>();
         this.cryptoReserves = new HashMap<>();
         initializeMarket();
+    }
+
+    public static Exchange getInstance() {
+        if (instance == null) {
+            instance = new Exchange();
+        }
+        return instance;
     }
 
     private void initializeMarket() {

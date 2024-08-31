@@ -13,8 +13,12 @@ public class Wallet {
         this.userId = userId;
         this.fiatBalance = BigDecimal.ZERO;
         this.cryptoBalance = new HashMap<>();
-        this.cryptoBalance.put("BTC", BigDecimal.ZERO);
-        this.cryptoBalance.put("ETH", BigDecimal.ZERO);
+        initializeCryptoBalances();
+    }
+
+    private void initializeCryptoBalances() {
+        cryptoBalance.put("BTC", BigDecimal.ZERO);
+        cryptoBalance.put("ETH", BigDecimal.ZERO);
     }
 
     public int getUserId() {

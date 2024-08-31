@@ -1,6 +1,7 @@
 package org.example.repository;
 
 import org.example.model.Wallet;
+import org.example.repository.iRepository.WalletRepository;
 
 import java.util.HashMap;
 import java.util.Map;

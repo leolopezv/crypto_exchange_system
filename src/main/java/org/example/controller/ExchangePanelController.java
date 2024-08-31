@@ -3,13 +3,13 @@ package org.example.controller;
 import org.example.view.ConsoleView;
 import org.example.view.MenuViews;
 
-public class ExchangingMenuController {
+public class ExchangePanelController {
     private final ConsoleView consoleView;
     private final MenuViews menuViews;
     private final UserController userController;
     private final WalletController walletController;
 
-    public ExchangingMenuController(ConsoleView consoleView, MenuViews menuViews, UserController userController, WalletController walletController) {
+    public ExchangePanelController(ConsoleView consoleView, MenuViews menuViews, UserController userController, WalletController walletController) {
         this.consoleView = consoleView;
         this.menuViews = menuViews;
         this.userController = userController;

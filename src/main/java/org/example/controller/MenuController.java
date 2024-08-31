@@ -6,21 +6,21 @@ import org.example.view.MenuViews;
 public class MenuController {
     private final ConsoleView consoleView;
     private final MenuViews menuViews;
-    private final WelcomeMenuController welcomeMenuController;
-    private final ExchangingMenuController exchangingMenuController;
+    private final LoginPanelController loginPanelController;
+    private final ExchangePanelController exchangePanelController;
 
     public MenuController(ConsoleView consoleView, MenuViews menuViews, UserController userController, WalletController walletController) {
         this.consoleView = consoleView;
         this.menuViews = menuViews;
-        this.welcomeMenuController = new WelcomeMenuController(consoleView, menuViews, userController);
-        this.exchangingMenuController = new ExchangingMenuController(consoleView, menuViews, userController, walletController);
+        this.loginPanelController = new LoginPanelController(consoleView, menuViews, userController);
+        this.exchangePanelController = new ExchangePanelController(consoleView, menuViews, userController, walletController);
     }
 
     public void displayMenu() {
-        if (!welcomeMenuController.isUserLoggedIn()) {
-            welcomeMenuController.showMenu();
+        if (!loginPanelController.isUserLoggedIn()) {
+            loginPanelController.showMenu();
         } else {
-            exchangingMenuController.showMenu();
+            exchangePanelController.showMenu();
         }
     }
 }

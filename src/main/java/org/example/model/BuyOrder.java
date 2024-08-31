@@ -3,7 +3,7 @@ package org.example.model;
 import java.math.BigDecimal;
 
 public class BuyOrder extends Order {
-    private BigDecimal maxPrice;
+    private final BigDecimal maxPrice;
 
     public BuyOrder(int userId, String cryptoSymbol, BigDecimal amount, BigDecimal maxPrice) {
         super(userId, cryptoSymbol, amount);

@@ -1,6 +1,6 @@
 package org.example.model;
 
-import org.example.repository.OrderRepository;
+import org.example.repository.iRepository.OrderRepository;
 import org.example.service.BalanceService;
 import org.example.service.TransferService;
 
@@ -38,12 +38,9 @@ public class OrderBook {
     }
 
     public void matchOrders(Order order) {
-        if (order instanceof SellOrder) {
-            SellOrder sellOrder = (SellOrder) order;
-            if (!balanceService.hasSufficientCrypto(sellOrder.getUserId(), sellOrder.getCryptoSymbol(), sellOrder.getAmount())) {
-                System.out.println("Error: Insufficient crypto balance to place sell order.");
-                return;
-            }
+        if (order instanceof SellOrder && !hasSufficientCrypto((SellOrder) order)) {
+            System.out.println("Error: Insufficient crypto balance to place sell order.");
+            return;
         }
 
         Order matchingOrder = findMatchingOrder(order);
@@ -54,17 +51,19 @@ public class OrderBook {
         }
     }
 
-    private void executeTransaction(Order buyOrder, Order sellOrder) {
-        if (buyOrder instanceof BuyOrder && sellOrder instanceof SellOrder) {
-            BuyOrder bOrder = (BuyOrder) buyOrder;
-            SellOrder sOrder = (SellOrder) sellOrder;
+    private boolean hasSufficientCrypto(SellOrder sellOrder) {
+        return balanceService.hasSufficientCrypto(sellOrder.getUserId(), sellOrder.getCryptoSymbol(), sellOrder.getAmount());
+    }
 
-            transferService.transferCrypto(sOrder.getUserId(), bOrder.getUserId(), sOrder.getCryptoSymbol(), sOrder.getAmount());
-            transferService.transferFiat(bOrder.getUserId(), sOrder.getUserId(), sOrder.getMinPrice().multiply(sOrder.getAmount()));
+    private void executeTransaction(Order buyOrder, Order sellOrder) {
+        if (buyOrder instanceof BuyOrder client && sellOrder instanceof SellOrder seller) {
+
+            transferService.transferCrypto(seller.getUserId(), client.getUserId(), seller.getCryptoSymbol(), seller.getAmount());
+            transferService.transferFiat(client.getUserId(), seller.getUserId(), seller.getMinPrice().multiply(seller.getAmount()));
 
             System.out.println("Transaction executed successfully:");
-            System.out.println("Buyer: " + bOrder);
-            System.out.println("Seller: " + sOrder);
+            System.out.println("Buyer: " + client);
+            System.out.println("Seller: " + seller);
 
             removeOrder(buyOrder);
             removeOrder(sellOrder);

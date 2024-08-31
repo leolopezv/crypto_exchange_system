@@ -3,7 +3,9 @@ package org.example.service;
 import org.example.model.Exchange;
 import org.example.model.OrderBook;
 import org.example.repository.*;
-import org.example.service.*;
+import org.example.repository.iRepository.OrderRepository;
+import org.example.repository.iRepository.UserRepository;
+import org.example.repository.iRepository.WalletRepository;
 import org.example.view.MenuViews;
 import org.example.view.WalletView;
 
@@ -25,11 +27,6 @@ public class AppBootFactoryService implements AppBootFactory {
     }
 
     @Override
-    public Exchange createExchange() {
-        return new Exchange();
-    }
-
-    @Override
     public WalletService createWalletService(WalletRepository walletRepository, Exchange exchange) {
         return new WalletService(walletRepository, exchange, null);
     }
@@ -46,7 +43,7 @@ public class AppBootFactoryService implements AppBootFactory {
 
     @Override
     public OrderService createOrderService(OrderRepository orderRepository, BalanceService balanceService, TransferService transferService) {
-        return new OrderService(new OrderBook(orderRepository, balanceService, transferService), balanceService, transferService);
+        return new OrderService(new OrderBook(orderRepository, balanceService, transferService), balanceService);
     }
 
     @Override
@@ -64,3 +61,4 @@ public class AppBootFactoryService implements AppBootFactory {
         return new MenuViews();
     }
 }
+

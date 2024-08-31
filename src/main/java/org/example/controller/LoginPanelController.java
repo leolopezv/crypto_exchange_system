@@ -3,12 +3,12 @@ package org.example.controller;
 import org.example.view.ConsoleView;
 import org.example.view.MenuViews;
 
-public class WelcomeMenuController {
+public class LoginPanelController {
     private final ConsoleView consoleView;
     private final MenuViews menuViews;
     private final UserController userController;
 
-    public WelcomeMenuController(ConsoleView consoleView, MenuViews menuViews, UserController userController) {
+    public LoginPanelController(ConsoleView consoleView, MenuViews menuViews, UserController userController) {
         this.consoleView = consoleView;
         this.menuViews = menuViews;
         this.userController = userController;

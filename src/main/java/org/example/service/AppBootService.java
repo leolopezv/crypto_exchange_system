@@ -1,9 +1,11 @@
 package org.example.service;
 
 import org.example.model.Exchange;
+import org.example.repository.iRepository.OrderRepository;
+import org.example.repository.iRepository.UserRepository;
+import org.example.repository.iRepository.WalletRepository;
 import org.example.view.*;
 import org.example.controller.*;
-import org.example.repository.*;
 
 public class AppBootService {
     private final UserController userController;
@@ -11,12 +13,11 @@ public class AppBootService {
     private final MenuController menuController;
 
     public AppBootService(ConsoleView consoleView, AppBootFactoryService factory) {
-        // Use the factory to create services and repositories
         WalletRepository walletRepository = factory.createWalletRepository();
         OrderRepository orderRepository = factory.createOrderRepository();
         UserRepository userRepository = factory.createUserRepository();
 
-        Exchange exchange = factory.createExchange();
+        Exchange exchange = Exchange.getInstance();
         WalletService walletService = factory.createWalletService(walletRepository, exchange);
         BalanceService balanceService = factory.createBalanceService(walletRepository);
         TransferService transferService = factory.createTransferService(walletRepository, exchange);
@@ -29,7 +30,6 @@ public class AppBootService {
 
         this.userController = new UserController(userService, consoleView);
         this.walletController = new WalletController(walletService, walletView);
-
         this.menuController = new MenuController(consoleView, menuViews, userController, walletController);
     }
 

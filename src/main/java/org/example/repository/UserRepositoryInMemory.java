@@ -1,6 +1,7 @@
 package org.example.repository;
 
 import org.example.model.User;
+import org.example.repository.iRepository.UserRepository;
 
 import java.util.HashMap;
 import java.util.Map;

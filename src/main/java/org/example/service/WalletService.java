@@ -3,7 +3,7 @@ package org.example.service;
 import org.example.model.Crypto;
 import org.example.model.Exchange;
 import org.example.model.Wallet;
-import org.example.repository.WalletRepository;
+import org.example.repository.iRepository.WalletRepository;
 
 import java.math.BigDecimal;
 
