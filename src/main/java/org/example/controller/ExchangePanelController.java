@@ -1,25 +1,25 @@
 package org.example.controller;
 
 import org.example.view.ConsoleView;
-import org.example.view.MenuViews;
+import org.example.view.MenuView;
 
 public class ExchangePanelController {
     private final ConsoleView consoleView;
-    private final MenuViews menuViews;
+    private final MenuView menuView;
     private final UserController userController;
     private final WalletController walletController;
     private final OrderController orderController;
 
-    public ExchangePanelController(ConsoleView consoleView, MenuViews menuViews, UserController userController, WalletController walletController, OrderController orderController) {
+    public ExchangePanelController(ConsoleView consoleView, MenuView menuView, UserController userController, WalletController walletController, OrderController orderController) {
         this.consoleView = consoleView;
-        this.menuViews = menuViews;
+        this.menuView = menuView;
         this.userController = userController;
         this.walletController = walletController;
         this.orderController = orderController;
     }
 
     public void showMenu() {
-        menuViews.showExchangingMenu(consoleView, userController.getLoggedInUserName());
+        menuView.showExchangingMenu(consoleView, userController.getLoggedInUserName());
         int choice = consoleView.getUserChoice();
         handleMenuChoice(choice);
     }
@@ -31,7 +31,8 @@ public class ExchangePanelController {
             case 3 -> walletController.buyReserveCrypto(userController.getLoggedInUserId());
             case 4 -> orderController.placeBuyOrder(userController.getLoggedInUserId());
             case 5 -> orderController.placeSellOrder(userController.getLoggedInUserId());
-            case 6 -> userController.logoutUser();
+            case 6 -> orderController.showPastTransactions(userController.getLoggedInUserId());
+            case 7 -> userController.logoutUser();
             default -> showInvalidOption();
         }
     }

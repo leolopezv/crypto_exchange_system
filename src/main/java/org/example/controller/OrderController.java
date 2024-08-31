@@ -34,4 +34,8 @@ public class OrderController {
         BigDecimal minPrice = moneyView.getUserAmount("Enter the minimum price you are willing to accept: ");
         orderService.placeSellOrder(userId, cryptoSymbol, amount, minPrice);
     }
+
+    public void showPastTransactions(int userId) {
+        orderService.showPastTransactions(userId);
+    }
 }

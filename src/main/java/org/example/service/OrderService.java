@@ -1,20 +1,22 @@
 package org.example.service;
 
-import org.example.model.BuyOrder;
-import org.example.model.OrderBook;
-import org.example.model.SellOrder;
+import org.example.model.*;
+import org.example.repository.iRepository.TransactionRepository;
 import org.example.service.iService.IBalanceService;
 import org.example.service.iService.IOrderService;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 public class OrderService implements IOrderService {
     private final OrderBook orderBook;
     private final IBalanceService balanceService;
+    private final TransactionRepository transactionRepository;
 
-    public OrderService(IBalanceService balanceService, OrderBook orderBook) {
+    public OrderService(IBalanceService balanceService, OrderBook orderBook, TransactionRepository transactionRepository) {
         this.balanceService = balanceService;
         this.orderBook = orderBook;
+        this.transactionRepository = transactionRepository;
     }
 
     @Override
@@ -26,6 +28,7 @@ public class OrderService implements IOrderService {
             return;
         }
         BuyOrder order = new BuyOrder(userId, cryptoSymbol, amount, maxPrice);
+        System.out.println("Buy order successfully placed.");
         orderBook.matchOrders(order);
     }
 
@@ -36,6 +39,15 @@ public class OrderService implements IOrderService {
             return;
         }
         SellOrder order = new SellOrder(userId, cryptoSymbol, amount, minPrice);
+        System.out.println("Sell order successfully placed.");
         orderBook.matchOrders(order);
+    }
+
+    @Override
+    public void showPastTransactions(int userId) {
+        List<Transaction> transactions = transactionRepository.findByUserId(userId);
+        for (Transaction transaction : transactions) {
+            System.out.println(transaction);
+        }
     }
 }

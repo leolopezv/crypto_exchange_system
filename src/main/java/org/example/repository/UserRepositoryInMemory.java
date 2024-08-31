@@ -23,22 +23,8 @@ public class UserRepositoryInMemory implements UserRepository {
     }
 
     @Override
-    public User findByName(String name) {
-        for (User user : users.values()) {
-            if (user.getName().equals(name)) {
-                return user;
-            }
-        }
-        return null;
-    }
-
-    @Override
     public User findByEmail(String email) {
-        for (User user : users.values()) {
-            if (user.getEmail().equals(email)) {
-                return user;
-            }
-        }
+        for (User user : users.values()) if (user.getEmail().equals(email)) return user;
         return null;
     }
 }

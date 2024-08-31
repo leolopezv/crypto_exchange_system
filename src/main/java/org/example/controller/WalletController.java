@@ -36,6 +36,7 @@ public class WalletController {
     public void buyReserveCrypto(int userId) {
         List<String> validSymbols = exchange.getAvailableCryptoSymbols();
         String cryptoSymbol = moneyView.getCryptoSymbol(validSymbols);
+        exchange.getCryptoBySymbol(cryptoSymbol).showMarketPrice();
         BigDecimal amount = moneyView.getUserAmount("Enter the amount of reserve crypto you want to buy: ");
         moneyView.showMessage(walletService.buyReserveCrypto(userId, cryptoSymbol, amount));
         exchange.showCryptoStock();

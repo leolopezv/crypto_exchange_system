@@ -22,11 +22,6 @@ public class OrderRepositoryInMemory implements OrderRepository {
     }
 
     @Override
-    public Order findById(int orderId) {
-        return orders.stream().filter(order -> order.getOrderId() == orderId).findFirst().orElse(null);
-    }
-
-    @Override
     public void delete(Order order) {
         orders.remove(order);
     }

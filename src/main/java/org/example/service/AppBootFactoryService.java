@@ -1,12 +1,13 @@
 package org.example.service;
 
 import org.example.model.OrderBook;
-import org.example.repository.*;
-import org.example.repository.iRepository.OrderRepository;
-import org.example.repository.iRepository.UserRepository;
-import org.example.repository.iRepository.WalletRepository;
-import org.example.service.iService.AppBootFactory;
-import org.example.view.MenuViews;
+import org.example.repository.OrderRepositoryInMemory;
+import org.example.repository.TransactionRepositoryInMemory;
+import org.example.repository.UserRepositoryInMemory;
+import org.example.repository.WalletRepositoryInMemory;
+import org.example.repository.iRepository.*;
+import org.example.service.iService.*;
+import org.example.view.MenuView;
 import org.example.view.MoneyView;
 
 public class AppBootFactoryService implements AppBootFactory {
@@ -27,27 +28,37 @@ public class AppBootFactoryService implements AppBootFactory {
     }
 
     @Override
-    public WalletService createWalletService(WalletRepository walletRepository) {
+    public TransactionRepository createTransactionRepository() {
+        return new TransactionRepositoryInMemory();
+    }
+
+    @Override
+    public IWalletService createWalletService(WalletRepository walletRepository) {
         return new WalletService(walletRepository);
     }
 
     @Override
-    public BalanceService createBalanceService(WalletRepository walletRepository, OrderRepository orderRepository) {
+    public IBalanceService createBalanceService(WalletRepository walletRepository, OrderRepository orderRepository) {
         return new BalanceService(walletRepository, orderRepository);
     }
 
     @Override
-    public TransferService createTransferService(WalletRepository walletRepository) {
+    public ITransferService createTransferService(WalletRepository walletRepository) {
         return new TransferService(walletRepository);
     }
 
     @Override
-    public OrderService createOrderService(OrderRepository orderRepository, BalanceService balanceService, TransferService transferService) {
-        return new OrderService(balanceService, new OrderBook(orderRepository, balanceService, transferService));
+    public IOrderService createOrderService(OrderRepository orderRepository, IBalanceService balanceService, ITransferService transferService, TransactionRepository transactionRepository) {
+        return new OrderService(balanceService, createOrderBook(orderRepository, balanceService, transferService, transactionRepository), transactionRepository);
     }
 
     @Override
-    public UserService createUserService(UserRepository userRepository, WalletRepository walletRepository) {
+    public OrderBook createOrderBook(OrderRepository orderRepository, IBalanceService balanceService, ITransferService transferService, TransactionRepository transactionRepository) {
+        return new OrderBook(orderRepository, (BalanceService) balanceService, (TransferService) transferService, transactionRepository);
+    }
+
+    @Override
+    public IUserService createUserService(UserRepository userRepository, WalletRepository walletRepository) {
         return new UserService(userRepository, walletRepository);
     }
 
@@ -57,7 +68,7 @@ public class AppBootFactoryService implements AppBootFactory {
     }
 
     @Override
-    public MenuViews createMenuViews() {
-        return new MenuViews();
+    public MenuView createMenuViews() {
+        return new MenuView();
     }
 }

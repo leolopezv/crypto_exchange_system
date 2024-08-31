@@ -1,21 +1,21 @@
 package org.example.controller;
 
 import org.example.view.ConsoleView;
-import org.example.view.MenuViews;
+import org.example.view.MenuView;
 
 public class LoginPanelController {
     private final ConsoleView consoleView;
-    private final MenuViews menuViews;
+    private final MenuView menuView;
     private final UserController userController;
 
-    public LoginPanelController(ConsoleView consoleView, MenuViews menuViews, UserController userController) {
+    public LoginPanelController(ConsoleView consoleView, MenuView menuView, UserController userController) {
         this.consoleView = consoleView;
-        this.menuViews = menuViews;
+        this.menuView = menuView;
         this.userController = userController;
     }
 
     public void showMenu() {
-        menuViews.showWelcomeMenu(consoleView);
+        menuView.showWelcomeMenu(consoleView);
         int choice = consoleView.getUserChoice();
         handleMenuChoice(choice);
     }
