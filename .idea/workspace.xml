@@ -5,26 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="604e94ce-f48e-4905-a856-7f1f94ed53b6" name="Changes" comment="Fixed: Multiple module coupling issues have been addressed before the introduction of Transaction">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/model/Transaction.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/repository/TransactionRepositoryInMemory.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/repository/iRepository/TransactionRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controller/ExchangePanelController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/ExchangePanelController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controller/LoginPanelController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/LoginPanelController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controller/MenuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/MenuController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controller/OrderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/OrderController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controller/WalletController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/WalletController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/model/OrderBook.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/model/OrderBook.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/repository/OrderRepositoryInMemory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/repository/OrderRepositoryInMemory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/repository/UserRepositoryInMemory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/repository/UserRepositoryInMemory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/repository/iRepository/OrderRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/repository/iRepository/OrderRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/repository/iRepository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/repository/iRepository/UserRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/service/AppBootFactoryService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/service/AppBootFactoryService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/service/AppBootService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/service/AppBootService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/service/OrderService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/service/OrderService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/service/iService/AppBootFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/service/iService/AppBootFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/service/iService/IOrderService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/service/iService/IOrderService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/view/MenuViews.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/view/MenuView.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -138,7 +120,7 @@
       <workItem from="1724866618279" duration="4606000" />
       <workItem from="1724885381188" duration="25392000" />
       <workItem from="1725020351215" duration="20107000" />
-      <workItem from="1725130176648" duration="12589000" />
+      <workItem from="1725130176648" duration="15662000" />
     </task>
     <task id="LOCAL-00001" summary="Added: user registration logic">
       <option name="closed" value="true" />
