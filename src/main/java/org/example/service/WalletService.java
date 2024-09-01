@@ -1,25 +1,18 @@
 package org.example.service;
 
+import org.example.model.Wallet;
 import org.example.model.Crypto;
 import org.example.model.Exchange;
-import org.example.model.Wallet;
 import org.example.repository.iRepository.WalletRepository;
 
 import java.math.BigDecimal;
 
 public class WalletService {
     private final WalletRepository walletRepository;
-    private final Exchange exchange;
-    private OrderService orderService;
+    private final Exchange exchange = Exchange.getInstance();
 
-    public WalletService(WalletRepository walletRepository, Exchange exchange, OrderService orderService) {
+    public WalletService(WalletRepository walletRepository) {
         this.walletRepository = walletRepository;
-        this.exchange = exchange;
-        this.orderService = orderService;
-    }
-
-    public void setOrderService(OrderService orderService) {
-        this.orderService = orderService;
     }
 
     public Wallet getWalletByUserId(int userId) {
@@ -34,9 +27,32 @@ public class WalletService {
         }
     }
 
-    public String buyReserveCrypto(int userId, String cryptoSymbol, BigDecimal amount) {
+    public void transferCrypto(int fromUserId, int toUserId, String cryptoSymbol, BigDecimal amount) {
+        Wallet fromWallet = walletRepository.findByUserId(fromUserId);
+        Wallet toWallet = walletRepository.findByUserId(toUserId);
+        Crypto crypto = exchange.getCryptoBySym(cryptoSymbol);
+
+        fromWallet.deductCrypto(crypto, amount);
+        toWallet.addCrypto(crypto, amount);
+
+        walletRepository.save(fromWallet);
+        walletRepository.save(toWallet);
+    }
+
+    public void transferFiat(int fromUserId, int toUserId, BigDecimal amount) {
+        Wallet fromWallet = walletRepository.findByUserId(fromUserId);
+        Wallet toWallet = walletRepository.findByUserId(toUserId);
+
+        fromWallet.deductFiat(amount);
+        toWallet.addFiat(amount);
+
+        walletRepository.save(fromWallet);
+        walletRepository.save(toWallet);
+    }
+
+    public String buyExCrypto(int userId, String cryptoSymbol, BigDecimal amount) {
         Wallet wallet = getWalletByUserId(userId);
-        Crypto crypto = exchange.getCryptoBySymbol(cryptoSymbol);
+        Crypto crypto = exchange.getCryptoBySym(cryptoSymbol);
         if (wallet == null || crypto == null) return "Wallet or crypto not found";
 
         BigDecimal totalCost = crypto.getMarketPrice().multiply(amount);
@@ -48,18 +64,6 @@ public class WalletService {
         exchange.reduceCryptoStock(cryptoSymbol, amount);
         walletRepository.save(wallet);
         return "Purchase successful";
-    }
-
-    public void placeBuyOrder(int userId, String cryptoSymbol, BigDecimal amount, BigDecimal maxPrice) {
-        orderService.placeBuyOrder(userId, cryptoSymbol, amount, maxPrice);
-    }
-
-    public void placeSellOrder(int userId, String cryptoSymbol, BigDecimal amount, BigDecimal minPrice) {
-        orderService.placeSellOrder(userId, cryptoSymbol, amount, minPrice);
-    }
-
-    public Exchange getExchange() {
-        return exchange;
     }
 
     public Wallet getWalletBalance(int userId) {

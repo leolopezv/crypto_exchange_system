@@ -1,70 +1,72 @@
 package org.example.model;
 
 import org.example.repository.iRepository.OrderRepository;
+import org.example.repository.iRepository.TransactionRepository;
 import org.example.service.BalanceService;
-import org.example.service.TransferService;
+import org.example.service.WalletService;
 
-import java.util.List;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 public class OrderBook {
     private final OrderRepository orderRepository;
-    private final BalanceService balanceService;
-    private final TransferService transferService;
+    private final WalletService walletService;
+    private final TransactionRepository transactionRepository;
 
-    public OrderBook(OrderRepository orderRepository, BalanceService balanceService, TransferService transferService) {
+    public OrderBook(OrderRepository orderRepository, WalletService walletService, TransactionRepository transactionRepository) {
         this.orderRepository = orderRepository;
-        this.balanceService = balanceService;
-        this.transferService = transferService;
-    }
-
-    public Order findMatchingOrder(Order newOrder) {
-        List<Order> orders = orderRepository.findAll();
-
-        for (Order existingOrder : orders) {
-            if (existingOrder.matches(newOrder)) return existingOrder;
-        }
-        return null;
+        this.walletService = walletService;
+        this.transactionRepository = transactionRepository;
     }
 
     public void matchOrders(Order order) {
-        if (order instanceof SellOrder && !hasSufficientCrypto((SellOrder) order)) {
-            System.out.println("Error: Insufficient crypto balance to place sell order.");
-            return;
-        }
-        Order matchingOrder = findMatchingOrder(order);
-        if (matchingOrder != null) {
-            executeTransaction(order, matchingOrder);
+        Order match = findMatch(order);
+        if (match != null) {
+            executeDeal(order, match);
         } else {
-            addOrder(order);
+            orderRepository.save(order);
         }
     }
 
-    private boolean hasSufficientCrypto(SellOrder sellOrder) {
-        return balanceService.hasSufficientCrypto(sellOrder.getUserId(), sellOrder.getCryptoSymbol(), sellOrder.getAmount());
+    private Order findMatch(Order newOrder) {
+        return orderRepository.findAll().stream()
+                .filter(existingOrder -> existingOrder.matches(newOrder))
+                .findFirst()
+                .orElse(null);
     }
 
-    private void executeTransaction(Order buyOrder, Order sellOrder) {
-        if (buyOrder instanceof BuyOrder buyer && sellOrder instanceof SellOrder seller) {
-
-            transferService.transferCrypto(seller.getUserId(), buyer.getUserId(), seller.getCryptoSymbol(), seller.getAmount());
-            transferService.transferFiat(buyer.getUserId(), seller.getUserId(), seller.getMinPrice().multiply(seller.getAmount()));
-
-            System.out.println("Transaction executed successfully:");
-            System.out.println("Buyer: " + buyer);
-            System.out.println("Seller: " + seller);
-
-            removeOrder(buyOrder);
-            removeOrder(sellOrder);
+    private void executeDeal(Order buyOrder, Order sellOrder) {
+        if (buyOrder instanceof BuyOrder && sellOrder instanceof SellOrder) {
+            closeDeal((BuyOrder) buyOrder, (SellOrder) sellOrder);
         } else if (buyOrder instanceof SellOrder && sellOrder instanceof BuyOrder) {
-            executeTransaction(sellOrder, buyOrder);
+            closeDeal((BuyOrder) sellOrder, (SellOrder) buyOrder);
         }
     }
 
-    private void addOrder(Order order) {
-        orderRepository.save(order);
+    private void closeDeal(BuyOrder buyer, SellOrder seller) {
+        walletService.transferCrypto(seller.getUserId(), buyer.getUserId(), seller.getCryptoSymbol(), seller.getAmount());
+        walletService.transferFiat(buyer.getUserId(), seller.getUserId(), seller.getMinPrice().multiply(seller.getAmount()));
+
+        System.out.println("The deal has been sealed:");
+        System.out.println("Buyer: " + buyer);
+        System.out.println("Seller: " + seller);
+
+        registerDeal(buyer.getUserId(), seller.getCryptoSymbol(), seller.getAmount(), seller.getMinPrice(), "buy");
+        registerDeal(seller.getUserId(), seller.getCryptoSymbol(), seller.getAmount(), seller.getMinPrice(), "sell");
+
+        orderRepository.delete(buyer);
+        orderRepository.delete(seller);
     }
 
-    private void removeOrder(Order order) {
-        orderRepository.delete(order);
+    private void registerDeal(int userId, String cryptoSymbol, BigDecimal amount, BigDecimal price, String type) {
+        Transaction transaction = new Transaction(
+                userId,
+                cryptoSymbol,
+                amount,
+                price,
+                type,
+                LocalDateTime.now()
+        );
+        transactionRepository.save(transaction);
     }
 }

@@ -6,7 +6,7 @@ import org.example.repository.iRepository.WalletRepository;
 import java.util.HashMap;
 import java.util.Map;
 
-public class WalletRepositoryInMemory implements WalletRepository {
+public class WalletMemoryRepo implements WalletRepository {
     private Map<Integer, Wallet> walletLocation = new HashMap<>();
 
     @Override

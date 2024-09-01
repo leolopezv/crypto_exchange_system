@@ -19,16 +19,16 @@ public class BalanceService {
         this.orderRepository = orderRepository;
     }
 
-    public boolean hasSufficientCrypto(int userId, String cryptoSymbol, BigDecimal newOrderAmount) {
+    public boolean hasEnoughCrypto(int userId, String cryptoSymbol, BigDecimal newOrderAmount) {
         Wallet wallet = walletRepository.findByUserId(userId);
-        if (wallet == null) return false;
+        if (wallet == null) return true;
 
-        BigDecimal totalSellOrders = calculateTotalSellOrders(userId, cryptoSymbol);
-        BigDecimal availableBalance = wallet.getCryptoBalance().get(cryptoSymbol);
-        return availableBalance != null && availableBalance.compareTo(totalSellOrders.add(newOrderAmount)) >= 0;
+        BigDecimal sells = calculateSells(userId, cryptoSymbol);
+        BigDecimal availableCrypto = wallet.getCryptoBalance().get(cryptoSymbol);
+        return availableCrypto == null || availableCrypto.compareTo(sells.add(newOrderAmount)) < 0;
     }
 
-    private BigDecimal calculateTotalSellOrders(int userId, String cryptoSymbol) {
+    private BigDecimal calculateSells(int userId, String cryptoSymbol) {
         List<Order> orders = orderRepository.findAll();
         BigDecimal total = BigDecimal.ZERO;
 
@@ -40,16 +40,16 @@ public class BalanceService {
         return total;
     }
 
-    public boolean hasSufficientFiat(int userId, BigDecimal newOrderCost) {
+    public boolean hasEnoughFiat(int userId, BigDecimal newOrderCost) {
         Wallet wallet = walletRepository.findByUserId(userId);
         if (wallet == null) return false;
 
-        BigDecimal totalBuyOrderCost = calculateTotalBuyOrderCost(userId);
-        BigDecimal availableFiatBalance = wallet.getFiatBalance();
-        return availableFiatBalance != null && availableFiatBalance.compareTo(totalBuyOrderCost.add(newOrderCost)) >= 0;
+        BigDecimal purchases = calculatePurchases(userId);
+        BigDecimal availableFiat = wallet.getFiatBalance();
+        return availableFiat != null && availableFiat.compareTo(purchases.add(newOrderCost)) >= 0;
     }
 
-    private BigDecimal calculateTotalBuyOrderCost(int userId) {
+    private BigDecimal calculatePurchases(int userId) {
         List<Order> orders = orderRepository.findAll();
         BigDecimal total = BigDecimal.ZERO;
 

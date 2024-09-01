@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
-public class WalletView extends ConsoleView {
+public class MoneyView extends ConsoleView {
     public BigDecimal getUserAmount(String prompt) {
         while (true) {
             System.out.print(prompt);
