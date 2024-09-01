@@ -18,7 +18,7 @@ public class WalletController {
         this.moneyView = moneyView;
     }
 
-    public void depMoney(int userId) {
+    public void depositMoney(int userId) {
         BigDecimal amount = moneyView.getUserAmount("Enter the amount of fiat money you want to deposit: ");
         walletService.depositFiat(userId, amount);
         moneyView.showSuccess("Deposit successful! New balance: " + walletService.getWalletBalance(userId).getFiatBalance());
@@ -33,7 +33,7 @@ public class WalletController {
         }
     }
 
-    public void buyFromEx(int userId) {
+    public void buyFromExchange(int userId) {
         List<String> validSymbols = exchange.getAllCryptoSym();
         String cryptoSymbol = moneyView.getCryptoSymbol(validSymbols);
         exchange.getCryptoBySym(cryptoSymbol).showMarketPrice();

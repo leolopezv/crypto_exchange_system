@@ -36,11 +36,11 @@ public class AppFactory {
     }
 
     public OrderService createOrderService(OrderRepository orderRepository, BalanceService balanceService, WalletService walletService, TransactionRepository transactionRepository) {
-        return new OrderService(balanceService, createOrderBook(orderRepository, balanceService, walletService, transactionRepository), transactionRepository);
+        return new OrderService(balanceService, createOrderBook(orderRepository, walletService, transactionRepository), transactionRepository);
     }
 
-    public OrderBook createOrderBook(OrderRepository orderRepository, BalanceService balanceService, WalletService walletService, TransactionRepository transactionRepository) {
-        return new OrderBook(orderRepository, balanceService, walletService, transactionRepository);
+    public OrderBook createOrderBook(OrderRepository orderRepository, WalletService walletService, TransactionRepository transactionRepository) {
+        return new OrderBook(orderRepository, walletService, transactionRepository);
     }
 
     public UserService createUserService(UserRepository userRepository, WalletRepository walletRepository) {

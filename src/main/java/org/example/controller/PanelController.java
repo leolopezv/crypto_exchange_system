@@ -49,9 +49,9 @@ public class PanelController {
 
     private void exchangeMenu(int choice) {
         switch (choice) {
-            case 1 -> walletController.depMoney(userController.getLoggedInUserId());
+            case 1 -> walletController.depositMoney(userController.getLoggedInUserId());
             case 2 -> walletController.viewWallet(userController.getLoggedInUserId());
-            case 3 -> walletController.buyFromEx(userController.getLoggedInUserId());
+            case 3 -> walletController.buyFromExchange(userController.getLoggedInUserId());
             case 4 -> orderController.placeBuyOrder(userController.getLoggedInUserId());
             case 5 -> orderController.placeSellOrder(userController.getLoggedInUserId());
             case 6 -> orderController.showPastTr(userController.getLoggedInUserId());

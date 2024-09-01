@@ -35,5 +35,4 @@ public abstract class Order {
 
     public abstract boolean matches(Order otherOrder);
 
-    public abstract void executeOrder();
 }

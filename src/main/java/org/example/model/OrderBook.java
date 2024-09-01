@@ -10,23 +10,16 @@ import java.time.LocalDateTime;
 
 public class OrderBook {
     private final OrderRepository orderRepository;
-    private final BalanceService balanceService;
     private final WalletService walletService;
     private final TransactionRepository transactionRepository;
 
-    public OrderBook(OrderRepository orderRepository, BalanceService balanceService, WalletService walletService, TransactionRepository transactionRepository) {
+    public OrderBook(OrderRepository orderRepository, WalletService walletService, TransactionRepository transactionRepository) {
         this.orderRepository = orderRepository;
-        this.balanceService = balanceService;
         this.walletService = walletService;
         this.transactionRepository = transactionRepository;
     }
 
     public void matchOrders(Order order) {
-        if (order instanceof SellOrder sellOrder && balanceService.hasEnoughCrypto(sellOrder.getUserId(), sellOrder.getCryptoSymbol(), sellOrder.getAmount())) {
-            System.out.println("You dont have enough crypto to place sell order.");
-            return;
-        }
-
         Order match = findMatch(order);
         if (match != null) {
             executeDeal(order, match);

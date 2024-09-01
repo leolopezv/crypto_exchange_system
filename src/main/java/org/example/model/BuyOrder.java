@@ -26,11 +26,6 @@ public class BuyOrder extends Order {
     }
 
     @Override
-    public void executeOrder() {
-        System.out.println("Executing buy order: " + this);
-    }
-
-    @Override
     public String toString() {
         return "BuyOrder{" +
                 "orderId=" + orderId +
