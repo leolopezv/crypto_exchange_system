@@ -6,7 +6,7 @@ import org.example.repository.iRepository.OrderRepository;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OrderRepositoryInMemory implements OrderRepository {
+public class OrderMemoryRepo implements OrderRepository {
     private List<Order> orders = new ArrayList<>();
     private int currentId = 1;
 

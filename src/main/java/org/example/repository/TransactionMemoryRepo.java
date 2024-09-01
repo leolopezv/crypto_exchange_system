@@ -6,7 +6,7 @@ import org.example.repository.iRepository.TransactionRepository;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TransactionRepositoryInMemory implements TransactionRepository {
+public class TransactionMemoryRepo implements TransactionRepository {
     private final List<Transaction> transactions = new ArrayList<>();
 
     @Override

@@ -24,24 +24,8 @@ public class Transaction {
         return userId;
     }
 
-    public String getCryptoSymbol() {
-        return cryptoSymbol;
-    }
-
     public BigDecimal getAmount() {
         return amount;
-    }
-
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public String getAction() {
-        return action;
-    }
-
-    public LocalDateTime getTimestamp() {
-        return timestamp;
     }
 
     @Override

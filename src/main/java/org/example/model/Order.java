@@ -17,10 +17,6 @@ public abstract class Order {
         this.date = new Date();
     }
 
-    public int getOrderId() {
-        return orderId;
-    }
-
     public void setOrderId(int orderId) {
         this.orderId = orderId;
     }
@@ -35,10 +31,6 @@ public abstract class Order {
 
     public BigDecimal getAmount() {
         return amount;
-    }
-
-    public Date getDate() {
-        return date;
     }
 
     public abstract boolean matches(Order otherOrder);

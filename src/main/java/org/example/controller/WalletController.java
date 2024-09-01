@@ -18,13 +18,13 @@ public class WalletController {
         this.moneyView = moneyView;
     }
 
-    public void depositMoney(int userId) {
+    public void depMoney(int userId) {
         BigDecimal amount = moneyView.getUserAmount("Enter the amount of fiat money you want to deposit: ");
         walletService.depositFiat(userId, amount);
         moneyView.showSuccess("Deposit successful! New balance: " + walletService.getWalletBalance(userId).getFiatBalance());
     }
 
-    public void viewWalletBalance(int userId) {
+    public void viewWallet(int userId) {
         Wallet wallet = walletService.getWalletByUserId(userId);
         if (wallet != null) {
             moneyView.showWalletBalance(wallet.getFiatBalance(), wallet.getCryptoBalance());
@@ -33,12 +33,12 @@ public class WalletController {
         }
     }
 
-    public void buyReserveCrypto(int userId) {
-        List<String> validSymbols = exchange.getAvailableCryptoSymbols();
+    public void buyFromEx(int userId) {
+        List<String> validSymbols = exchange.getAllCryptoSym();
         String cryptoSymbol = moneyView.getCryptoSymbol(validSymbols);
-        exchange.getCryptoBySymbol(cryptoSymbol).showMarketPrice();
+        exchange.getCryptoBySym(cryptoSymbol).showMarketPrice();
         BigDecimal amount = moneyView.getUserAmount("Enter the amount of reserve crypto you want to buy: ");
-        moneyView.showMessage(walletService.buyReserveCrypto(userId, cryptoSymbol, amount));
+        moneyView.showMessage(walletService.buyExCrypto(userId, cryptoSymbol, amount));
         exchange.showCryptoStock();
     }
 }

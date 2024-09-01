@@ -1,13 +1,13 @@
 package org.example.view;
 
 public class MenuView {
-    public void showWelcomeMenu(ConsoleView consoleView) {
+    public void showLoginMenu(ConsoleView consoleView) {
         consoleView.showMessage("=== Welcome to Leonardo's Exchange! Select: ===");
         consoleView.showMessage("1. Create new account\t2. Login to profile");
         consoleView.showMessage("=================== 3. Quit ===================");
     }
 
-    public void showExchangingMenu(ConsoleView consoleView, String userName) {
+    public void showExMenu(ConsoleView consoleView, String userName) {
         consoleView.showMessage("========= " + userName + ", enter an option: =========");
         consoleView.showMessage("1. Deposit fiat money \t4. Place Buy Order");
         consoleView.showMessage("2. View wallet balance\t5. Place Sell Order");

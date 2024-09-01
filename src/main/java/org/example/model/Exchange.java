@@ -33,7 +33,7 @@ public class Exchange {
         cryptoReserves.put(crypto.getSymbol(), reserve);
     }
 
-    public Crypto getCryptoBySymbol(String symbol) {
+    public Crypto getCryptoBySym(String symbol) {
         return cryptoMap.get(symbol);
     }
 
@@ -53,7 +53,7 @@ public class Exchange {
         }
     }
 
-    public List<String> getAvailableCryptoSymbols() {
+    public List<String> getAllCryptoSym() {
         return List.copyOf(cryptoMap.keySet());
     }
 }

@@ -1,16 +1,16 @@
 package org.example;
 
 import org.example.controller.RootController;
-import org.example.service.AppBootFactoryService;
-import org.example.service.AppBootService;
+import org.example.service.AppFactory;
+import org.example.service.AppService;
 import org.example.view.ConsoleView;
 
 public class Main {
     public static void main(String[] args) {
         ConsoleView consoleView = new ConsoleView();
-        AppBootFactoryService factory = new AppBootFactoryService();
-        AppBootService appBootService = new AppBootService(consoleView, factory);
-        RootController rootController = new RootController(appBootService);
+        AppFactory factory = new AppFactory();
+        AppService appService = new AppService(consoleView, factory);
+        RootController rootController = appService.getRootController();
         rootController.run();
         consoleView.close();
     }

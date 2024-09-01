@@ -4,9 +4,8 @@ import org.example.model.User;
 import org.example.repository.iRepository.UserRepository;
 import org.example.model.Wallet;
 import org.example.repository.iRepository.WalletRepository;
-import org.example.service.iService.IUserService;
 
-public class UserService implements IUserService {
+public class UserService {
     private UserRepository userRepository;
     private WalletRepository walletRepository;
 
@@ -15,7 +14,6 @@ public class UserService implements IUserService {
         this.walletRepository = walletRepository;
     }
 
-    @Override
     public User registerUser(String name, String email, String password) {
         if (userExists(email)) return null;
         User newUser = new User(name, email, password);
@@ -26,7 +24,6 @@ public class UserService implements IUserService {
         return newUser;
     }
 
-    @Override
     public User authenticateUser(String email, String password) {
         User user = userRepository.findByEmail(email);
         return user != null && user.getPassword().equals(password) ? user : null;

@@ -6,7 +6,7 @@ import org.example.repository.iRepository.UserRepository;
 import java.util.HashMap;
 import java.util.Map;
 
-public class UserRepositoryInMemory implements UserRepository {
+public class UserMemoryRepo implements UserRepository {
     private Map<Integer, User> users = new HashMap<>();
     private int currentId = 1;
 
