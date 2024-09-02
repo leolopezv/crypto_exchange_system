@@ -21,11 +21,11 @@ public class BalanceService {
 
     public boolean hasEnoughCrypto(int userId, String cryptoSymbol, BigDecimal newOrderAmount) {
         Wallet wallet = walletRepository.findByUserId(userId);
-        if (wallet == null) return true;
+        if (wallet == null) return false;
 
         BigDecimal sells = calculateSells(userId, cryptoSymbol);
         BigDecimal availableCrypto = wallet.getCryptoBalance().get(cryptoSymbol);
-        return availableCrypto == null || availableCrypto.compareTo(sells.add(newOrderAmount)) < 0;
+        return availableCrypto != null && availableCrypto.compareTo(sells.add(newOrderAmount)) >= 0;
     }
 
     private BigDecimal calculateSells(int userId, String cryptoSymbol) {

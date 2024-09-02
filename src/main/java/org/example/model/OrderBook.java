@@ -2,7 +2,6 @@ package org.example.model;
 
 import org.example.repository.iRepository.OrderRepository;
 import org.example.repository.iRepository.TransactionRepository;
-import org.example.service.BalanceService;
 import org.example.service.WalletService;
 
 import java.math.BigDecimal;

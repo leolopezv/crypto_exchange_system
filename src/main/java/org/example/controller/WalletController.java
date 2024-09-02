@@ -6,7 +6,6 @@ import org.example.service.WalletService;
 import org.example.view.MoneyView;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 public class WalletController {
     private final WalletService walletService;
@@ -34,10 +33,8 @@ public class WalletController {
     }
 
     public void buyFromExchange(int userId) {
-        List<String> validSymbols = exchange.getAllCryptoSymbols();
-        String cryptoSymbol = moneyView.getCryptoSymbol(validSymbols);
-        exchange.getCryptoBySymbol(cryptoSymbol).showMarketPrice();
-        BigDecimal amount = moneyView.getUserAmount("Enter the amount of reserve crypto you want to buy: ");
+        String cryptoSymbol = moneyView.getCryptoSymbol(exchange.getAllCryptoSymbols());
+        BigDecimal amount = moneyView.getInfoAmount(exchange, cryptoSymbol);
         moneyView.showMessage(walletService.buyExchangeCrypto(userId, cryptoSymbol, amount));
         exchange.showCryptoStock();
     }

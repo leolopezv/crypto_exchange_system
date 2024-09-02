@@ -1,5 +1,7 @@
 package org.example.view;
 
+import org.example.model.Exchange;
+
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
@@ -37,5 +39,10 @@ public class MoneyView extends ConsoleView {
                 showError("Invalid symbol. Enter one of these: " + validSymbols);
             }
         }
+    }
+
+    public BigDecimal getInfoAmount(Exchange exchange, String cryptoSymbol) {
+        System.out.println(exchange.getCryptoBySymbol(cryptoSymbol));
+        return getUserAmount("Enter the amount of crypto: ");
     }
 }

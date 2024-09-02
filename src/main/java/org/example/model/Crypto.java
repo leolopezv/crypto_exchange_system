@@ -29,16 +29,8 @@ public class Crypto {
         this.marketPrice = marketPrice;
     }
 
-    public void showMarketPrice() {
-        System.out.println("The market price of " + name + " is " + marketPrice);
-    }
-
     @Override
     public String toString() {
-        return "Crypto{" +
-                "symbol='" + symbol + '\'' +
-                ", name='" + name + '\'' +
-                ", maketPrice=" + marketPrice +
-                '}';
+        return name + " (" + symbol + ") - $" + marketPrice;
     }
 }
