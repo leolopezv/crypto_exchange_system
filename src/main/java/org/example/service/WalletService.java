@@ -30,7 +30,7 @@ public class WalletService {
     public void transferCrypto(int fromUserId, int toUserId, String cryptoSymbol, BigDecimal amount) {
         Wallet fromWallet = walletRepository.findByUserId(fromUserId);
         Wallet toWallet = walletRepository.findByUserId(toUserId);
-        Crypto crypto = exchange.getCryptoBySym(cryptoSymbol);
+        Crypto crypto = exchange.getCryptoBySymbol(cryptoSymbol);
 
         fromWallet.deductCrypto(crypto, amount);
         toWallet.addCrypto(crypto, amount);
@@ -50,9 +50,9 @@ public class WalletService {
         walletRepository.save(toWallet);
     }
 
-    public String buyExCrypto(int userId, String cryptoSymbol, BigDecimal amount) {
+    public String buyExchangeCrypto(int userId, String cryptoSymbol, BigDecimal amount) {
         Wallet wallet = getWalletByUserId(userId);
-        Crypto crypto = exchange.getCryptoBySym(cryptoSymbol);
+        Crypto crypto = exchange.getCryptoBySymbol(cryptoSymbol);
         if (wallet == null || crypto == null) return "Wallet or crypto not found";
 
         BigDecimal totalCost = crypto.getMarketPrice().multiply(amount);

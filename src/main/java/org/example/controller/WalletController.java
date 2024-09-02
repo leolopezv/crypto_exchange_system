@@ -34,11 +34,11 @@ public class WalletController {
     }
 
     public void buyFromExchange(int userId) {
-        List<String> validSymbols = exchange.getAllCryptoSym();
+        List<String> validSymbols = exchange.getAllCryptoSymbols();
         String cryptoSymbol = moneyView.getCryptoSymbol(validSymbols);
-        exchange.getCryptoBySym(cryptoSymbol).showMarketPrice();
+        exchange.getCryptoBySymbol(cryptoSymbol).showMarketPrice();
         BigDecimal amount = moneyView.getUserAmount("Enter the amount of reserve crypto you want to buy: ");
-        moneyView.showMessage(walletService.buyExCrypto(userId, cryptoSymbol, amount));
+        moneyView.showMessage(walletService.buyExchangeCrypto(userId, cryptoSymbol, amount));
         exchange.showCryptoStock();
     }
 }

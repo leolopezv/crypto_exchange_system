@@ -18,18 +18,18 @@ public class OrderController {
     }
 
     public void placeBuyOrder(int userId) {
-        List<String> validSymbols = exchange.getAllCryptoSym();
+        List<String> validSymbols = exchange.getAllCryptoSymbols();
         String cryptoSymbol = moneyView.getCryptoSymbol(validSymbols);
-        exchange.getCryptoBySym(cryptoSymbol).showMarketPrice();
+        exchange.getCryptoBySymbol(cryptoSymbol).showMarketPrice();
         BigDecimal amount = moneyView.getUserAmount("How much crypto do you want to buy?: ");
         BigDecimal maxPrice = moneyView.getUserAmount("How much are you willing to pay?: ");
         orderService.placeBuyOrder(userId, cryptoSymbol, amount, maxPrice);
     }
 
     public void placeSellOrder(int userId) {
-        List<String> validSymbols = exchange.getAllCryptoSym();
+        List<String> validSymbols = exchange.getAllCryptoSymbols();
         String cryptoSymbol = moneyView.getCryptoSymbol(validSymbols);
-        exchange.getCryptoBySym(cryptoSymbol).showMarketPrice();
+        exchange.getCryptoBySymbol(cryptoSymbol).showMarketPrice();
         BigDecimal amount = moneyView.getUserAmount("How much crypto do you want to sell?: ");
         BigDecimal minPrice = moneyView.getUserAmount("Enter the minimum price you are willing to accept: ");
         orderService.placeSellOrder(userId, cryptoSymbol, amount, minPrice);

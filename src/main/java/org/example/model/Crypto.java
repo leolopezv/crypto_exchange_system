@@ -25,6 +25,10 @@ public class Crypto {
         return marketPrice;
     }
 
+    public void setMarketPrice(BigDecimal marketPrice) {
+        this.marketPrice = marketPrice;
+    }
+
     public void showMarketPrice() {
         System.out.println("The market price of " + name + " is " + marketPrice);
     }
