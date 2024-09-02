@@ -31,6 +31,6 @@ public class Crypto {
 
     @Override
     public String toString() {
-        return name + " (" + symbol + ") - $" + marketPrice;
+        return name + " (" + symbol + ") - on the Market is worth $" + marketPrice;
     }
 }

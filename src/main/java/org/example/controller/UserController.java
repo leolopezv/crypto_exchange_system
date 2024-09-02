@@ -2,6 +2,7 @@ package org.example.controller;
 
 import org.example.model.User;
 import org.example.service.UserService;
+import org.example.service.exception.FailedSessionEx;
 import org.example.view.ConsoleView;
 
 public class UserController {
@@ -18,22 +19,22 @@ public class UserController {
         String name = consoleView.getUserInput("Enter your name: ");
         String email = consoleView.getUserInput("Enter your email: ");
         String password = consoleView.getUserInput("Enter your password: ");
-        User newUser = userService.registerUser(name, email, password);
-        if (newUser != null) {
+        try {
+            userService.registerUser(name, email, password);
             consoleView.showSuccess("Successful registration.");
-        } else {
-            consoleView.showError("Email already in use.");
+        } catch (FailedSessionEx e) {
+            consoleView.showError(e.getMessage());
         }
     }
 
     public void loginUser() {
         String email = consoleView.getUserInput("Enter your email: ");
         String password = consoleView.getUserInput("Enter your password: ");
-        loggedInUser = userService.authenticateUser(email, password);
-        if (loggedInUser != null) {
+        try {
+            loggedInUser = userService.authenticateUser(email, password);
             consoleView.showSuccess("Hi " + loggedInUser.getName() + "!");
-        } else {
-            consoleView.showError("Invalid credentials.");
+        } catch (FailedSessionEx e) {
+            consoleView.showError(e.getMessage());
         }
     }
 

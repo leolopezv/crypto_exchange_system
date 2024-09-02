@@ -8,10 +8,10 @@ public class Transaction {
     private String cryptoSymbol;
     private BigDecimal amount;
     private BigDecimal price;
-    private String action; // "buy" or "sell"
+    private TransactionType action; // "buy" or "sell"
     private LocalDateTime timestamp;
 
-    public Transaction(int userId, String cryptoSymbol, BigDecimal amount, BigDecimal price, String action, LocalDateTime timestamp) {
+    public Transaction(int userId, String cryptoSymbol, BigDecimal amount, BigDecimal price, TransactionType action, LocalDateTime timestamp) {
         this.userId = userId;
         this.cryptoSymbol = cryptoSymbol;
         this.amount = amount;

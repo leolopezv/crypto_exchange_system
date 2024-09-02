@@ -20,7 +20,7 @@ public class PanelController {
 
     public void showMenu() {
         if (userController.isLoggedIn()) {
-            showExchangeMenu();
+            displayExchangeMenu();
         } else {
             showLoginMenu();
         }
@@ -41,8 +41,8 @@ public class PanelController {
         }
     }
 
-    private void showExchangeMenu() {
-        menuView.showExMenu(consoleView, userController.getLoggedInUserName());
+    private void displayExchangeMenu() {
+        menuView.showExchangeMenu(consoleView, userController.getLoggedInUserName());
         int choice = consoleView.getUserChoice();
         exchangeMenu(choice);
     }
@@ -54,7 +54,7 @@ public class PanelController {
             case 3 -> walletController.buyFromExchange(userController.getLoggedInUserId());
             case 4 -> orderController.placeBuyOrder(userController.getLoggedInUserId());
             case 5 -> orderController.placeSellOrder(userController.getLoggedInUserId());
-            case 6 -> orderController.showPastTr(userController.getLoggedInUserId());
+            case 6 -> orderController.showPastTransactions(userController.getLoggedInUserId());
             case 7 -> userController.logoutUser();
             default -> showInvalidOption();
         }

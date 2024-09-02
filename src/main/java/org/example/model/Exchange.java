@@ -59,10 +59,11 @@ public class Exchange {
     }
 
     public void showCryptoStock() {
-        System.out.println("Current Exchange Stock:");
+        System.out.println("Current EXCHANGE Stock:");
         for (Map.Entry<String, BigDecimal> entry : cryptoReserves.entrySet()) {
-            System.out.println(entry.getKey() + ": " + entry.getValue());
+            System.out.print("["+entry.getKey()+"]:" + entry.getValue() + " ");
         }
+        System.out.println();
     }
 
     private void startPriceFluctuation() {

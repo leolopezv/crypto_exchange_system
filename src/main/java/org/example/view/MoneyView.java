@@ -4,6 +4,7 @@ import org.example.model.Exchange;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 public class MoneyView extends ConsoleView {
@@ -25,14 +26,15 @@ public class MoneyView extends ConsoleView {
     }
 
     public void showWalletBalance(BigDecimal fiatBalance, Map<String, BigDecimal> cryptoBalance) {
-        System.out.println("Wallet fiat money balance: " + fiatBalance);
-        cryptoBalance.forEach((crypto, balance) -> System.out.println(crypto + ": " + balance));
+        System.out.println("Wallet fiat Balance [USD]: " + fiatBalance);
+        cryptoBalance.forEach((crypto, balance) -> System.out.print("Balance [" + crypto + "]: " + balance + " "));
+        System.out.println();
     }
 
     public String getCryptoSymbol(List<String> validSymbols) {
         while (true) {
             System.out.print("Enter a symbol " + validSymbols + ": ");
-            String symbol = scanner.next();
+            String symbol = scanner.next().toUpperCase(Locale.ROOT);
             if (validSymbols.contains(symbol)) {
                 return symbol;
             } else {

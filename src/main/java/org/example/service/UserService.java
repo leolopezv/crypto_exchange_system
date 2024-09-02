@@ -4,6 +4,7 @@ import org.example.model.User;
 import org.example.repository.iRepository.UserRepository;
 import org.example.model.Wallet;
 import org.example.repository.iRepository.WalletRepository;
+import org.example.service.exception.FailedSessionEx;
 
 public class UserService {
     private UserRepository userRepository;
@@ -15,7 +16,7 @@ public class UserService {
     }
 
     public User registerUser(String name, String email, String password) {
-        if (userExists(email)) return null;
+        if (userExists(email)) throw new FailedSessionEx("Email already in use");
         User newUser = new User(name, email, password);
         userRepository.save(newUser);
         Wallet newWallet = new Wallet(newUser.getUserId());
@@ -26,7 +27,10 @@ public class UserService {
 
     public User authenticateUser(String email, String password) {
         User user = userRepository.findByEmail(email);
-        return user != null && user.getPassword().equals(password) ? user : null;
+        if (user == null || !user.getPassword().equals(password)) {
+            throw new FailedSessionEx("Your email or password is incorrect");
+        }
+        return user;
     }
 
     private boolean userExists(String email) {

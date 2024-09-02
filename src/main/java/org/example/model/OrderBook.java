@@ -50,14 +50,14 @@ public class OrderBook {
         System.out.println("Buyer: " + buyer);
         System.out.println("Seller: " + seller);
 
-        registerDeal(buyer.getUserId(), seller.getCryptoSymbol(), seller.getAmount(), seller.getMinPrice(), "buy");
-        registerDeal(seller.getUserId(), seller.getCryptoSymbol(), seller.getAmount(), seller.getMinPrice(), "sell");
+        registerDeal(buyer.getUserId(), seller.getCryptoSymbol(), seller.getAmount(), seller.getMinPrice(), TransactionType.BUY);
+        registerDeal(seller.getUserId(), seller.getCryptoSymbol(), seller.getAmount(), seller.getMinPrice(), TransactionType.SELL);
 
         orderRepository.delete(buyer);
         orderRepository.delete(seller);
     }
 
-    private void registerDeal(int userId, String cryptoSymbol, BigDecimal amount, BigDecimal price, String type) {
+    private void registerDeal(int userId, String cryptoSymbol, BigDecimal amount, BigDecimal price, TransactionType type) {
         Transaction transaction = new Transaction(
                 userId,
                 cryptoSymbol,

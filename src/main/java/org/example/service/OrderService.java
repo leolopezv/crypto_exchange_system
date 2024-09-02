@@ -2,6 +2,7 @@ package org.example.service;
 
 import org.example.model.*;
 import org.example.repository.iRepository.TransactionRepository;
+import org.example.service.exception.FailedTransactionEx;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -21,28 +22,27 @@ public class OrderService {
         BigDecimal newOrderCost = amount.multiply(maxPrice);
 
         if (!balanceService.hasEnoughFiat(userId, newOrderCost)) {
-            System.out.println("Not enough fiat to place buy order.");
-            return;
+            throw new FailedTransactionEx("You dont have enough fiat to place buy order.");
         }
         BuyOrder order = new BuyOrder(userId, cryptoSymbol, amount, maxPrice);
-        System.out.println("Buy order placed.");
         orderBook.matchOrders(order);
     }
 
     public void placeSellOrder(int userId, String cryptoSymbol, BigDecimal amount, BigDecimal minPrice) {
         if (!balanceService.hasEnoughCrypto(userId, cryptoSymbol, amount)) {
-            System.out.println("Not enough crypto to place sell order.");
-            return;
+            throw new FailedTransactionEx("You may need more crypto to place sell order.");
         }
         SellOrder order = new SellOrder(userId, cryptoSymbol, amount, minPrice);
-        System.out.println("Sell order placed.");
         orderBook.matchOrders(order);
     }
 
     public void showHistory(int userId) {
         List<Transaction> transactions = transactionRepository.findByUserId(userId);
-        for (Transaction transaction : transactions) {
-            System.out.println(transaction);
+        if (transactions.isEmpty()) {
+            System.out.println("No transactions found.");
+        } else {
+            System.out.println("Your past transactions:");
+            transactions.forEach(System.out::println);
         }
     }
 }
