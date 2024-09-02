@@ -25,16 +25,12 @@ public class Crypto {
         return marketPrice;
     }
 
-    public void showMarketPrice() {
-        System.out.println("The market price of " + name + " is " + marketPrice);
+    public void setMarketPrice(BigDecimal marketPrice) {
+        this.marketPrice = marketPrice;
     }
 
     @Override
     public String toString() {
-        return "Crypto{" +
-                "symbol='" + symbol + '\'' +
-                ", name='" + name + '\'' +
-                ", maketPrice=" + marketPrice +
-                '}';
+        return name + " (" + symbol + ") - $" + marketPrice;
     }
 }

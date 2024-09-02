@@ -4,6 +4,6 @@ import java.math.BigDecimal;
 
 public class Ethereum extends Crypto {
     public Ethereum() {
-        super("ETH", "Ethereum", new BigDecimal("3000"));
+        super("ETH", "Ethereum", BigDecimal.ZERO);
     }
 }

@@ -30,7 +30,7 @@ public class OrderService {
     }
 
     public void placeSellOrder(int userId, String cryptoSymbol, BigDecimal amount, BigDecimal minPrice) {
-        if (balanceService.hasEnoughCrypto(userId, cryptoSymbol, amount)) {
+        if (!balanceService.hasEnoughCrypto(userId, cryptoSymbol, amount)) {
             System.out.println("Not enough crypto to place sell order.");
             return;
         }

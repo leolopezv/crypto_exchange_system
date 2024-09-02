@@ -4,6 +4,6 @@ import java.math.BigDecimal;
 
 public class Bitcoin extends Crypto {
     public Bitcoin() {
-        super("BTC", "Bitcoin", new BigDecimal("50000"));
+        super("BTC", "Bitcoin", BigDecimal.ZERO);
     }
 }
