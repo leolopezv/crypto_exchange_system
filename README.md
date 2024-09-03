@@ -34,6 +34,16 @@ The UML diagram above describes the architecture of the **Crypto Exchange System
   - By dividing the application into three distinct components, each part of the system can focus on its specific responsibility. The **Model** manages the data and business logic (e.g., handling orders, transactions, and wallet balances). The **View** is responsible for presenting the data to the user, such as displaying menus and asking input to the user. The **Controller** handles user input and interacts with the Model to update the View accordingly.
   - It is important to mention that I furthermore expanded the architecture by implementing Services and Repositories. **Services** help the controllers do a better job and reducing their number of tasks, while **Repositories** securely store the obtained data in the memory, and may deliver them if needed.
 
+### Model
+- The model has been previously described in the UML diagram as the core of system's logic.
+### Controller
+- **OrderController**: It is not only responsible for placing Buy and Sell orders, but also to check through its `OrderService`, that the user has sufficient fiat money or crypto to perform a transaction. The orders are saved on `OrderRepository` until they are matched by OrderBook to another order. Note: I have also taken into account the fiat or crypto that the `User` has already committed on delivering in past orders, to avoid a lack of funds. 
+- **PanelController**: This controller is responsible for handling the choice that the user inputs to navigate through the menus. Besides displaying them from the view, it is also a very important controller, since it connects the menu to the rest of the controllers.
+- **RootController**: This class is the core of the whole crypto exchange system, responsible for starting the application from `Main` and handling the run loop.
+- **UserController**: The controller's tasks rely on registering, logging, and authenticating users who may access the application. `UserService` assists the controller by saving the users on the `UserRepository` and associating each one of them to their personal wallet.
+- **WalletController**: The WalletController saves the fiat money and crypto balances of each user in a safe place. The controller allows the deposit of external fiat money into the balance, and the purchases of cryptocurrency from the Exchange. `WalletService` assists the controller and makes possible the transfer of both fiat money and cryptocurrency between users, increasing or reducing the fiat or cryptocurrency accordingly.
+### View
+- `ConsoleView`, `MenuView` and `MoneyView`, are the views of the system. They will retrieve the user's inputs, show multiple messages (with different colors depending of the status of that message), and to display the menus for both LoginMenu and ExchangeMenu.
 
 ## Design Patterns
 
