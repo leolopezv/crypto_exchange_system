@@ -81,3 +81,10 @@ Enjoy trading crypto with more users with this application!
 
 ## Final note
 - Special thanks to my Bootcamp teachers: Juan Manuel and Angel, for the incredible reasoning and coding knowledge they have shared along the course, and their support on my first steps into professional life 🚀
+- Below you will see me executing the program to try its functionalities, among me triggering a few errors to show you some of the validations that I have made.
+
+
+https://github.com/user-attachments/assets/f7a42beb-1c7d-480d-84c8-b63bf13db8d1
+
+
+
